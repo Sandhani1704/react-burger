@@ -4,7 +4,9 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 
 const IngredientItem= ({info, onIngredientClick}) => {
   return (
-    <div onClick={onIngredientClick}>
+    <div className={styles.content} onClick={() => {
+      onIngredientClick(info);
+    }}>
         <img className='mb-1' src={info.image} alt={`ингредиент ${info.name}`} />
         <span className={`text text_type_digits-default mb-1 ${styles.price}`}>
           {info.price} <CurrencyIcon type="primary" />

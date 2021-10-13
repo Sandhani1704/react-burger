@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from './modal-overlay.module.css';
 
-function ModalOverlay(onClickHandler) {
+function ModalOverlay({onModalHideClick}) {
   
 
     return ReactDOM.createPortal(
         (
-            <div className={styles.overlay} onClick={onClickHandler}>
+            <div className={styles.overlay} onClick={onModalHideClick}>
                 
             </div>
         ),

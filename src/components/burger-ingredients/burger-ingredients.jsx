@@ -15,7 +15,8 @@ function BurgerIngredients({ ingredients, onIngredientClick }) {
         <h2 className='text text_type_main-medium mb-6'>Булки</h2>
         <div className={styles.list}>
        { ingredients.filter(item => item.type === 'bun').map(item => (
-            <IngredientItem info={item} key={item._id} onIngredientClick={onIngredientClick} />
+            <IngredientItem info={item} key={item._id} onIngredientClick={onIngredientClick} 
+             />
           ))
         }
         </div>
