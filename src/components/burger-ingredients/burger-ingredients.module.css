@@ -1,0 +1,44 @@
+.types {
+    max-height: 690px;
+    /* overflow: auto; */
+    box-sizing: border-box;
+  }
+  
+  .list {
+    margin: auto;
+    max-width: 600px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+    gap: 24px;
+  }
+
+   
+  .container {
+    max-height: 600px;
+    overflow: auto;
+  }
+
+  .container::-webkit-scrollbar-thumb {
+    height: 492px;
+    background: #8585AD;
+  }
+  
+  /* .types::-webkit-scrollbar-thumb {
+    height: 492px;
+  } */
+
+  div::-webkit-scrollbar-thumb {
+    height: 70px;
+    width: 70px;
+  }
+  
+  div::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  div::-webkit-scrollbar-corner {
+    color: var(--background-element);
+    background: #2F2F37;
+  }
+  

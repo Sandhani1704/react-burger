@@ -1,0 +1,15 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    max-width: 1208px;
+    width: 100%;
+    margin: 0 auto;
+    
+    box-sizing: border-box;
+  }
+  
+  .content {
+    display: flex;
+    
+  }
+  
