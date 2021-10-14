@@ -1,19 +1,37 @@
 .popup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 720px;
-    height: 539px;
-    box-sizing: border-box;
-    border-radius: 40px;
-    background: #1C1C21;
-    overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 720px;
+  min-height: 539px;
+  box-sizing: border-box;
+  border-radius: 40px;
+  background: #1c1c21;
+  overflow: hidden;
 }
 
 .container {
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  position: relative;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
+.close-icon {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-50%, -50%);
+  border: none;
+  padding: 0;
+  background-color: var(--background);
+  cursor: pointer;
+  transition: opacity 0.6s ease;
+  outline: none;
+}
+
+.close-icon:hover {
+    opacity: .8;
+  }

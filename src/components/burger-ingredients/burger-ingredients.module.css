@@ -1,20 +1,23 @@
 .types {
-    max-height: 690px;
+    /* // max-height: 690px;max-height */
     /* overflow: auto; */
     box-sizing: border-box;
   }
   
+  .content {
+    max-width: 600px;
+    box-sizing: border-box;
+  }
   .list {
+    display: grid;
     margin: auto;
     max-width: 600px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+    grid-template-columns: 272px 272px;
     gap: 24px;
   }
-
    
   .container {
-    max-height: 600px;
+    max-height: 650px;
     overflow: auto;
   }
 
@@ -23,10 +26,6 @@
     background: #8585AD;
   }
   
-  /* .types::-webkit-scrollbar-thumb {
-    height: 492px;
-  } */
-
   div::-webkit-scrollbar-thumb {
     height: 70px;
     width: 70px;

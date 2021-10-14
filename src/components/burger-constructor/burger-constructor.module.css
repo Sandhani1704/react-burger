@@ -1,13 +1,22 @@
 .constructor {
-  flex-direction: column;
+  max-width: 600px;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  flex-basis: 600px;
+  
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: auto;
 }
 
 .order {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
+  display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .icon {
@@ -15,13 +24,13 @@
     align-content: center;
 }
 
-.currencyIcon {
+.order svg {
     width: 33px;
     height: 33px;
     margin-left: 9.5px;
 }
 
-.main {
+.total {
     display: flex;
     align-items: center;
 }
