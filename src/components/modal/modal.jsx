@@ -3,8 +3,16 @@ import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
+import PropTypes from "prop-types";
 
-function Modal({ title = "", onModalHideClick, children }) {
+function Modal({ title, onModalHideClick, children }) {
+
+  Modal.propTypes = {
+    title: PropTypes.string,
+    children: PropTypes.element.isRequired,
+    onModalHideClick: PropTypes.func.isRequired,
+  }; 
+
   return ReactDOM.createPortal(
     <div>
       <ModalOverlay onModalHideClick={onModalHideClick} />

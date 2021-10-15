@@ -1,14 +1,13 @@
 .item {
-    display: flex;
-    align-items: center;
-    color: white;
-    border-radius: 40px;
-    text-decoration: none;
-    justify-content: center;
-    
+  display: flex;
+  align-items: center;
+  color: white;
+  border-radius: 40px;
+  text-decoration: none;
+  justify-content: center;
 }
 
-.item:hover{
-    opacity: 0.8;
-    transition: .3s ease;
-  }
+.item:hover {
+  opacity: 0.8;
+  transition: 0.3s ease;
+}

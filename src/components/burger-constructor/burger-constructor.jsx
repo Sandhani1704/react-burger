@@ -1,59 +1,72 @@
 import React from "react";
-import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
+import PropTypes from "prop-types";
+import { burgerPropTypes } from '../../types';
 
 function BurgerConstructor({ ingredients, orderDetailsModalClick }) {
+
+  BurgerConstructor.propTypes = {
+    ingredients: PropTypes.arrayOf(burgerPropTypes).isRequired, 
+    orderDetailsModalClick: PropTypes.func,
+  };
+
   const bun = React.useMemo(() => {
     return ingredients.find((item) => item.type === "bun");
   }, [ingredients]);
 
-  // const buns = ingredients.filter((item) => item.type === "bun");
-
   const notBuns = ingredients.filter((item) => item.type !== "bun");
 
   return (
-    <div className={`${styles.constructor} pt-13 pl-20`}>
+    <div className={`${styles.constructor} pt-13 pl-10`}>
       <div className={styles.container}>
-      {bun && (
+      <div className={styles['top-container']}>
+        {bun && (
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+            style={{ display: "flex", gap: "16px", justifyContent: "flex-end" }}
           >
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={bun.name + ' (верх)'}
+              text={bun.name + " (верх)"}
               price={bun.price}
               thumbnail={bun.image}
             />
           </div>
-        ) }
-        {notBuns.slice(0, 5).map((item) => (
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "16px" }}
-          >
-          <ConstructorElement
+        )}
+        </div>
+        <div className={styles['scroll-container']}>
+        {notBuns.slice(0, 7).map((item) => (
+          
+          <div key={item._id} className={styles['main-element']}>
+            <DragIcon type="primary" />
+            <ConstructorElement
               text={item.name}
               price={item.price}
               thumbnail={item.image}
             />
           </div>
+          
         ))}
+        </div>
+        <div className={styles['bottom-container']}>
         {bun && (
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+            style={{ display: "flex", gap: "16px", justifyContent: "flex-end" }}
           >
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={bun.name + ' (низ)'}
+              text={bun.name + " (низ)"}
               price={bun.price}
               thumbnail={bun.image}
             />
           </div>
-        ) }
+        )}
+        </div>
       </div>
       <div className={`${styles.order} mr-4 mt-10`}>
         <div className={`text mr-10 ${styles.total}`}>

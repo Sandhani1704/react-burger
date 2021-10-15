@@ -1,12 +1,17 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
+import { ingredientPropTypes } from '../../types';
 
 function IngredientDetails({selectedIngredient}) {
     
+    IngredientDetails.propTypes = {
+        selectedIngredient: ingredientPropTypes,
+    };
+        
     const {image_large, calories, proteins, carbohydrates, fat, name} = selectedIngredient;
     return (
         <div className={`mb-15 ${styles.content}`}>
-            <div className={`mb-4 ${styles.image_wrapper}`}><img src={image_large} alt=''/></div>
+            <div className={`mb-4 ${styles.image_wrapper}`}><img src={image_large} alt={name}/></div>
             <span className={`mb-8 text text_type_main-medium`}>{name}</span>
             <div className={styles.nutrition}>
                 <div className={styles.item}>

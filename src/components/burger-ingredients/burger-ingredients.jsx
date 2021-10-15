@@ -1,22 +1,23 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import IngredientItem from '../ingredient-item/ingredient-item';
 import styles from './burger-ingredients.module.css';
 import Tabs from '../tabs/tabs';
+import PropTypes from "prop-types";
+import { burgerPropTypes } from '../../types';
 
 function BurgerIngredients({ ingredients, onIngredientClick }) {
-  
-  const listsRef = useRef(null);
-  const bunsRef = useRef(null);
-  const saucesRef = useRef(null);
-  const mainRef = useRef(null);
 
-    
+  BurgerIngredients.propTypes = {
+    ingredients: PropTypes.arrayOf(burgerPropTypes).isRequired, 
+    onIngredientClick: PropTypes.func,
+  };
+     
   return (
     <div className={`${styles.types} `} >
         <Tabs />
-        <div ref={listsRef} className={styles.container}>
+        <div className={styles.container}>
       <section className={`${styles.content} mb-10`}>
-        <h2 ref={bunsRef} className='text text_type_main-medium mb-6'>Булки</h2>
+        <h2 className='text text_type_main-medium mb-6'>Булки</h2>
         <div className={styles.list}>
        { ingredients.filter(item => item.type === 'bun').map(item => (
             <IngredientItem info={item} key={item._id} onIngredientClick={onIngredientClick} 
@@ -26,7 +27,7 @@ function BurgerIngredients({ ingredients, onIngredientClick }) {
         </div>
       </section>
       <section className={`${styles.content} mb-10`}>
-        <h2 ref={saucesRef} className='text text_type_main-medium mb-6'>Соусы</h2>
+        <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
         <div className={styles.list}>
           {ingredients.filter(item => item.type === 'sauce').map(item => (
             <IngredientItem info={item} key={item._id} onIngredientClick={onIngredientClick}/>
@@ -34,7 +35,7 @@ function BurgerIngredients({ ingredients, onIngredientClick }) {
         </div>
       </section>
       <section className={`${styles.content} mb-10`}>
-        <h2 ref={mainRef} className='text text_type_main-medium mb-6'>Основные ингредиенты</h2>
+        <h2 className='text text_type_main-medium mb-6'>Основные ингредиенты</h2>
         <div className={styles.list}>
         {ingredients.filter(item => item.type === 'main').map(item => (
             <IngredientItem info={item} key={item._id} onIngredientClick={onIngredientClick} />

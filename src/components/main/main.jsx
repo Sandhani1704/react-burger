@@ -3,7 +3,7 @@ import styles from "./main.module.css";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import OrderDetails from '../order-details/order-details'
+import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import { getIngredients } from "../../utils/api";
 
@@ -16,13 +16,12 @@ function Main() {
   const onIngredientClick = (ingredient) => {
     if (popupOpen) return;
     setPopupOpen(true);
-    setSelectedIngredient(ingredient)
+    setSelectedIngredient(ingredient);
   };
 
   const orderDetailsModalClick = () => {
     if (orderDetailsModal) return;
     setOrderDetailsModal(true);
-    
   };
 
   const onModalHideClick = () => {
@@ -32,9 +31,6 @@ function Main() {
 
   React.useEffect(() => {
     getIngredients()
-      //.then(res => res.json())
-      //.then(result => setIngredients(result.data))
-
       .then((res) => {
         if (res) {
           const initialDatas = Object.values(res.data);
@@ -42,22 +38,7 @@ function Main() {
         }
       })
       .catch((err) => console.log(`Ошибка сервера: ${err}`));
-    console.log(ingredients);
   }, []);
-
-  //   React.useEffect(() => {
-  //     const getProductData = async () => {
-
-  //         const res = await fetch('https://norma.nomoreparties.space/api/ingredients');
-  //         const data = await res.json();
-
-  //         setIngredients(data);
-  //         console.log(data)
-  //     }
-
-  //     getProductData();
-
-  // }, [])
 
   return (
     <main className={` ${styles.main} pt-10`}>
@@ -67,7 +48,10 @@ function Main() {
           ingredients={ingredients}
           onIngredientClick={onIngredientClick}
         />
-        <BurgerConstructor ingredients={ingredients} orderDetailsModalClick={orderDetailsModalClick} />
+        <BurgerConstructor
+          ingredients={ingredients}
+          orderDetailsModalClick={orderDetailsModalClick}
+        />
       </div>
       {popupOpen && (
         <Modal title={"Детали ингредиента"} onModalHideClick={onModalHideClick}>
@@ -76,7 +60,7 @@ function Main() {
       )}
       {orderDetailsModal && (
         <Modal title={""} onModalHideClick={onModalHideClick}>
-          <OrderDetails  />
+          <OrderDetails />
         </Modal>
       )}
     </main>
