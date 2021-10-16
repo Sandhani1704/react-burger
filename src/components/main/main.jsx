@@ -6,6 +6,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import { getIngredients } from "../../utils/api";
+import { orderData } from '../../utils/order-data';
 
 function Main() {
   const [ingredients, setIngredients] = React.useState([]);
@@ -54,13 +55,13 @@ function Main() {
         />
       </div>
       {popupOpen && (
-        <Modal title={"Детали ингредиента"} onModalHideClick={onModalHideClick}>
+        <Modal title="Детали ингредиента" onModalHideClick={onModalHideClick}>
           <IngredientDetails selectedIngredient={selectedIngredient} />
         </Modal>
       )}
       {orderDetailsModal && (
-        <Modal title={""} onModalHideClick={onModalHideClick}>
-          <OrderDetails />
+        <Modal title='' onModalHideClick={onModalHideClick}>
+          <OrderDetails orderData={orderData} />
         </Modal>
       )}
     </main>

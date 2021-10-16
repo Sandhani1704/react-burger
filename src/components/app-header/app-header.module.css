@@ -18,6 +18,40 @@
   justify-content: space-between;
 }
 
+.item {
+  display: flex;
+  align-items: center;
+  color: white;
+  border: none;
+  text-decoration: none;
+  justify-content: center;
+  background: inherit;
+  width: 100%;
+  background: #1c1c21;
+  border: none;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.item_profile {
+  color: white;
+  border: none;
+  text-decoration: none;
+  justify-content: center;
+  background: inherit;
+  background: #1c1c21;
+  border: none;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.item:hover {
+  opacity: 0.8;
+  transition: 0.3s ease;
+}
+
 .left {
   display: flex;
   margin-right: auto;

@@ -6,12 +6,7 @@ import PropTypes from "prop-types";
 import { burgerPropTypes } from '../../types';
 
 function BurgerIngredients({ ingredients, onIngredientClick }) {
-
-  BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(burgerPropTypes).isRequired, 
-    onIngredientClick: PropTypes.func,
-  };
-     
+ 
   return (
     <div className={`${styles.types} `} >
         <Tabs />
@@ -46,5 +41,10 @@ function BurgerIngredients({ ingredients, onIngredientClick }) {
     </div>
   )
 }
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(burgerPropTypes).isRequired, 
+  onIngredientClick: PropTypes.func.isRequired,
+};
 
 export default BurgerIngredients;

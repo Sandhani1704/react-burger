@@ -8,12 +8,20 @@ import PropTypes from "prop-types";
 const modalRoot = document.getElementById("react-modals");
 
 function Modal({ title, onModalHideClick, children }) {
+  
+  React.useEffect(() => {
+    function handleEscClose(evt) {
+      if (evt.key === "Escape") {
+        onModalHideClick();
+      }
+    }
 
-  Modal.propTypes = {
-    title: PropTypes.string,
-    children: PropTypes.element.isRequired,
-    onModalHideClick: PropTypes.func.isRequired,
-  }; 
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  });
 
   return ReactDOM.createPortal(
     <div>
@@ -39,5 +47,11 @@ function Modal({ title, onModalHideClick, children }) {
     modalRoot
   );
 }
+
+Modal.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
+  onModalHideClick: PropTypes.func.isRequired,
+};
 
 export default Modal;

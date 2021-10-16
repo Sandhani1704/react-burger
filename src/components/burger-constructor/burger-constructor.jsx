@@ -9,11 +9,6 @@ import { burgerPropTypes } from '../../types';
 
 function BurgerConstructor({ ingredients, orderDetailsModalClick }) {
 
-  BurgerConstructor.propTypes = {
-    ingredients: PropTypes.arrayOf(burgerPropTypes).isRequired, 
-    orderDetailsModalClick: PropTypes.func,
-  };
-
   const bun = React.useMemo(() => {
     return ingredients.find((item) => item.type === "bun");
   }, [ingredients]);
@@ -82,5 +77,10 @@ function BurgerConstructor({ ingredients, orderDetailsModalClick }) {
     </div>
   );
 }
+
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(burgerPropTypes).isRequired, 
+  orderDetailsModalClick: PropTypes.func.isRequired,
+};
 
 export default BurgerConstructor;
