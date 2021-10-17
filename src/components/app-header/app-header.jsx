@@ -19,8 +19,8 @@ function AppHeader() {
             </p>
           </button>
           <button className={styles.item + " pl-5 pr-5 pt-4 pb-4"}>
-            <ListIcon type="primary" />
-            <p className={"text text_type_main-default ml-2 mr-5"}>
+            <ListIcon type="secondary" />
+            <p className={"text text_type_main-default ml-2 mr-5 text_color_inactive"}>
               Лента заказов
             </p>
           </button>
@@ -30,8 +30,8 @@ function AppHeader() {
         </div>
         <div className={styles.right}>
           <button className={styles.item__profile + " pl-5 pr-5 pt-4 pb-4"}>
-            <ProfileIcon type="primary" />
-            <p className={"text text_type_main-default ml-2 mr-5"}>
+            <ProfileIcon type="secondary" />
+            <p className={"text text_type_main-default ml-2 mr-5 text_color_inactive"}>
               Личный кабинет
             </p>
           </button>
