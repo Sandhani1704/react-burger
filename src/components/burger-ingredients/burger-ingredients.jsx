@@ -3,7 +3,7 @@ import IngredientItem from '../ingredient-item/ingredient-item';
 import styles from './burger-ingredients.module.css';
 import Tabs from '../tabs/tabs';
 import PropTypes from "prop-types";
-import { burgerPropTypes } from '../../types';
+import { burgerPropTypes } from '../../utils/types';
 
 function BurgerIngredients({ ingredients, onIngredientClick }) {
  

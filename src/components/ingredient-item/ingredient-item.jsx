@@ -5,7 +5,7 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../types";
+import { ingredientPropTypes } from "../../utils/types";
 
 const IngredientItem = ({ info, onIngredientClick }) => {
   return (
@@ -28,7 +28,7 @@ const IngredientItem = ({ info, onIngredientClick }) => {
 };
 
 IngredientItem.propTypes = {
-  info: ingredientPropTypes,
+  info: ingredientPropTypes.isRequired,
   onIngredientClick: PropTypes.func.isRequired,
 };
 
