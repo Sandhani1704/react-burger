@@ -32,9 +32,10 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
+  cursor: pointer;
 }
 
-.item_profile {
+.item__profile {
   color: white;
   border: none;
   text-decoration: none;
@@ -45,6 +46,11 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
+  cursor: pointer;
+}
+.item__profile:hover {
+  opacity: 0.8;
+  transition: 0.3s ease;
 }
 
 .item:hover {

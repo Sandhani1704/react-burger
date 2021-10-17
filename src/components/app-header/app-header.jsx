@@ -29,7 +29,7 @@ function AppHeader() {
           <Logo />
         </div>
         <div className={styles.right}>
-          <button className={styles.item_profile + " pl-5 pr-5 pt-4 pb-4"}>
+          <button className={styles.item__profile + " pl-5 pr-5 pt-4 pb-4"}>
             <ProfileIcon type="primary" />
             <p className={"text text_type_main-default ml-2 mr-5"}>
               Личный кабинет
