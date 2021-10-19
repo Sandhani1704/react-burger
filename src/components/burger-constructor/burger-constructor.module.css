@@ -1,0 +1,94 @@
+.constructor {
+  max-width: 610px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 600px;
+  align-items: stretch;
+  grid-gap: 16px;
+  gap: 16px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-basis: 464px;
+}
+
+.top-container {
+  margin-right: 16px;
+  max-width: 525px;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.bottom-container {
+  margin-right: 16px;
+  max-width: 525px;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.order {
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.icon {
+  display: flex;
+  align-content: center;
+}
+
+.order svg {
+  width: 33px;
+  height: 33px;
+  margin-left: 9.5px;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+}
+
+.main-element {
+  min-height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  margin-right: 8px;
+}
+
+.scroll-container {
+  max-width: 618px;
+  max-height: 464px;
+  overflow: auto;
+  justify-content: stretch;
+  gap: 16px;
+  
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  max-height: 464px;
+  background: #8585ad;
+}
+
+div::-webkit-scrollbar-thumb {
+  height: 70px;
+  width: 70px;
+}
+
+div::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+div::-webkit-scrollbar-corner {
+  color: var(--background-element);
+  background: #2f2f37;
+}
