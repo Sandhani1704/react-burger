@@ -1,0 +1,9 @@
+.main-element {
+  min-height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
+  grid-row-gap: 8px;
+  margin-right: 8px;
+}

@@ -2,17 +2,29 @@
   max-width: 610px;
   display: flex;
   flex-direction: column;
+  //align-items: center;
+  //justify-content: center;
   flex-basis: 600px;
-  align-items: stretch;
-  grid-gap: 16px;
-  gap: 16px;
+  
+  //align-items: stretch;
+  /* grid-gap: 16px;
+  gap: 16px; */
 }
 
 .container {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  //height: 600px;
+  gap: 16px;
+  flex-basis: 464px; */
+  max-width: 600px;
   display: flex;
   flex-direction: column;
+  flex-basis: 600px;
+  grid-gap: 16px;
   gap: 16px;
-  flex-basis: 464px;
 }
 
 .top-container {
@@ -35,6 +47,7 @@
   display: inline-flex;
   justify-content: flex-end;
   align-items: center;
+  margin-top: auto;
 }
 
 .icon {
@@ -53,29 +66,50 @@
   align-items: center;
 }
 
+.scroll-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 618px;
+  max-height: 464px;
+  overflow: auto;
+  align-items: stretch;
+  /* gap: 16px; */
+  grid-row-gap: 16px;
+  flex-basis: 464px;
+}
 .main-element {
   min-height: 80px;
   display: flex;
   flex-direction: row;
   justify-content: stretch;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
+  //align-items: stretch;
+  grid-row-gap: 8px;
+  /* grid-column-gap: 16px; */
+  
   margin-right: 8px;
 }
 
-.scroll-container {
-  max-width: 618px;
-  max-height: 464px;
-  overflow: auto;
-  justify-content: stretch;
-  gap: 16px;
-  
-}
+
 
 .scroll-container::-webkit-scrollbar-thumb {
   max-height: 464px;
   background: #8585ad;
+}
+
+.onHover {
+  border: 2px solid #4C4CFF;
+}
+
+.info {
+  align-items: center;
+  margin: auto;
+}
+
+.text {
+  align-items: center;
+  margin: auto;
+  text-align: center;
 }
 
 div::-webkit-scrollbar-thumb {
