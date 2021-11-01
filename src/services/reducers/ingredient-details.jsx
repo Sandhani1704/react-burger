@@ -1,7 +1,7 @@
 import {
   DISPLAY_INGREDIENT_INFO,
   HIDE_INGREDIENT_INFO,
-} from "../actions/burgers-constructor.jsx";
+} from "../actions/ingredient-details.jsx";
 
 export const initialState = {
   selectedIngredient: {},

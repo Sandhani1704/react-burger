@@ -3,7 +3,7 @@ import {
     GET_ITEMS_REQUEST,
     GET_ITEMS_SUCCESS,
     
-  } from "../actions/burgers-constructor.jsx";
+  } from "../actions/burger-ingredients-data.jsx";
   
   export const initialState = {
     ingredients: [],

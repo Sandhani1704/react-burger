@@ -22,7 +22,6 @@ export function getIngredients() {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        // body: JSON.stringify({ "ingredients": ingredientsId })
         body: JSON.stringify(data)
       })
         .then(res => {

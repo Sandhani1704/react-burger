@@ -2,7 +2,7 @@ import {
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
   HIDE_ORDER_INFO,
-} from "../actions/burgers-constructor.jsx";
+} from "../actions/order-details.jsx";
 
 export const initialState = {
     numberOrder: {},

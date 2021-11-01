@@ -1,16 +1,14 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import IngredientItem from "../ingredient-item/ingredient-item";
 import styles from "./burger-ingredients.module.css";
 import Tabs from "../tabs/tabs";
-// import PropTypes from "prop-types";
-// import { burgerPropTypes } from "../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getItems,
   DISPLAY_INGREDIENT_INFO,
   HIDE_INGREDIENT_INFO,
-} from "../../services/actions/burgers-constructor";
-import { Loader } from "../ui/loader/loader";
+} from "../../services/actions/ingredient-details";
+import { getItems } from "../../services/actions/burger-ingredients-data";
+import { Loader } from "../ui/loader/loader"; 
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 
@@ -21,11 +19,6 @@ function BurgerIngredients() {
   const { ingredients, itemsRequest } = useSelector(
     (state) => state.burgerIngredientsData
   );
-
-  const sauceRef = useRef();
-  const bunRef = useRef();
-  const mainRef = useRef();
-  //console.log(bunRef)
 
   useEffect(() => {
     dispatch(getItems());
@@ -62,7 +55,7 @@ function BurgerIngredients() {
 
       const isShouldChangeActiveTab = (block) => {
         return (
-          block.getBoundingClientRect().top - 100 <=
+          block.getBoundingClientRect().top - 150 <=
           tabs.getBoundingClientRect().bottom
         );
       };
@@ -102,7 +95,7 @@ function BurgerIngredients() {
       <Tabs activeTab={activeTab} />
       <div className={styles.container} id="ingredientCont">
         {loader}
-        <section className={`${styles.content} mb-10`} ref={bunRef} id="buns">
+        <section className={`${styles.content} mb-10`}  id="buns">
           <h2 className="text text_type_main-medium mb-6">Булки</h2>
           <div className={styles.list}>
             {ingredients
@@ -118,7 +111,6 @@ function BurgerIngredients() {
         </section>
         <section
           className={`${styles.content} mb-10`}
-          ref={sauceRef}
           id="sauces"
         >
           <h2 className="text text_type_main-medium mb-6">Соусы</h2>
@@ -134,7 +126,7 @@ function BurgerIngredients() {
               ))}
           </div>
         </section>
-        <section className={`${styles.content} mb-10`} ref={mainRef} id="main">
+        <section className={`${styles.content} mb-10`} id="main">
           <h2 className="text text_type_main-medium mb-6">
             Основные ингредиенты
           </h2>
@@ -159,10 +151,5 @@ function BurgerIngredients() {
     </div>
   );
 }
-
-// BurgerIngredients.propTypes = {
-//   ingredients: PropTypes.arrayOf(burgerPropTypes).isRequired,
-//   onIngredientClick: PropTypes.func.isRequired,
-// };
 
 export default BurgerIngredients;

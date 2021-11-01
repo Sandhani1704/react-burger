@@ -35,10 +35,12 @@ export const constructorReducer = (state = initialState, action) => {
     }
     case SORT_INGREDIENTS: {
       const newArr = [...state.addedIngredients];
+      
       let draggedItem = newArr[action.dragIndex];
       let targetItem = newArr[action.hoverIndex];
       newArr.splice(action.dragIndex, 1, targetItem);
       newArr.splice(action.hoverIndex, 1, draggedItem);
+      
       return {
         ...state,
         addedIngredients: newArr

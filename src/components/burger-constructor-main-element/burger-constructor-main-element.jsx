@@ -9,21 +9,14 @@ import { SORT_INGREDIENTS } from '../../services/actions/burgers-constructor';
 function BurgerConstructorMainElement({ item, index, deleteIngredient }) {
 const dispatch = useDispatch();
 const ref = useRef(null);
-//   const [, drag] = useDrag(() => ({
-//     type: "burgerIngredient",
-//     item: { item },
-//     collect: (monitor) => ({
-//       isDrag: monitor.isDragging(),
-//     }),
-//   }));
 
-const [ { isDrag }, drag] = useDrag({
+const [ { isDragging }, drag] = useDrag({
     type: 'main',
     item: () => {
       return { index };
     },
     collect: monitor => ({
-      isDrag: monitor.isDragging(),
+      isDragging: monitor.isDragging(),
     })
   })
 
@@ -38,20 +31,20 @@ const [ { isDrag }, drag] = useDrag({
 
       if (!ref.current)
         return;
-
+      // Don't replace items with themselves
       if (dragIndex === hoverIndex)
         return;
 
       dispatch({ type: SORT_INGREDIENTS, dragIndex, hoverIndex})
-      item.index = index;
+      
+      item.index = hoverIndex;
     }
   })
 
   drag(drop(ref))
 
   return (
-    !isDrag &&
-    <div ref={ref} key={index} className={styles["main-element"]}>
+    <div ref={ref} key={index} className={styles["main-element"]}  >
       <DragIcon type="primary" />
       <ConstructorElement
         text={item.name}

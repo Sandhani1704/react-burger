@@ -2,31 +2,10 @@ import React from "react";
 import styles from "./order-details.module.css";
 import DoneIcon from "../../images/graphics.png";
 import { useSelector } from 'react-redux';
-// import PropTypes from 'prop-types';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getOrderNumber } from '../../services/actions/burgers-constructor';
-// import { getOrder } from '../../utils/api';
 
 function OrderDetails() {
-  // const dispatch = useDispatch();
-  // const { addedIngredients } = useSelector(
-  //   (state) => state.burgersConstructor
-  // );
-  const numberOrder = useSelector((state) => state.order.numberOrder)
-
   
-
-  //const allItemsId = addedIngredients.map(item => item._id)
-  //console.log(allItemsId)
-
-  // useEffect(() => {
-  //   dispatch(getOrderNumber(allItemsId))
-  // }, [addedIngredients])
-
-  // useEffect(() => {
-  //   dispatch(getOrderNumber(addedIngredients.map(item => item._id)))
-    
-  // }, [])
+const numberOrder = useSelector((state) => state.order.numberOrder)
 
   return (
     <div className={`mb-15 ${styles.container}`}>
@@ -48,12 +27,5 @@ function OrderDetails() {
     </div>
   );
 }
-//   OrderDetails.propTypes = {
-//     orderData: PropTypes.shape({
-//         number: PropTypes.string.isRequired,
-//         status: PropTypes.string.isRequired,
-//         wait: PropTypes.string.isRequired,
-//     }).isRequired,
-// }
 
 export default OrderDetails;

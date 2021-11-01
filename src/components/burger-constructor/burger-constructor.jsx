@@ -4,11 +4,10 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorMainElement from '../burger-constructor-main-element/burger-constructor-main-element'
-// import PropTypes from "prop-types";
-// import { burgerPropTypes } from "../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_INGREDIENT, DELETE_INGREDIENT, HIDE_ORDER_INFO } from "../../services/actions/burgers-constructor";
-import { getOrderNumber } from '../../services/actions/burgers-constructor';
+import { ADD_INGREDIENT, DELETE_INGREDIENT } from "../../services/actions/burgers-constructor";
+import { HIDE_ORDER_INFO } from "../../services/actions/order-details";
+import { getOrderNumber } from '../../services/actions/order-details'; 
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import { useDrop } from "react-dnd";
@@ -21,8 +20,7 @@ function BurgerConstructor() {
   );
 
   const allItemsId = addedIngredients.map(item => item._id)
-   
-
+  
   const orderDetailsModalClick = () => {
     if (orderDetailsModal) return;
     setOrderDetailsModal(true);
@@ -142,10 +140,5 @@ const totalSum = useMemo(() => {
     </div>
   );
 }
-
-// BurgerConstructor.propTypes = {
-//   ingredients: PropTypes.arrayOf(burgerPropTypes).isRequired,
-//   orderDetailsModalClick: PropTypes.func.isRequired,
-// };
 
 export default BurgerConstructor;
