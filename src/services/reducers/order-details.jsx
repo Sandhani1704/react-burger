@@ -1,4 +1,5 @@
 import {
+  GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
   HIDE_ORDER_INFO,
@@ -12,7 +13,12 @@ export const initialState = {
 
 export const orderReducer = (state = initialState, action) => {
     switch (action.type) {
-      
+      case GET_ORDER_REQUEST: {
+        return {
+          ...state,
+          orderRequest: true,
+        };
+      }
       case GET_ORDER_SUCCESS: {
         return {
           ...state,
@@ -33,9 +39,7 @@ export const orderReducer = (state = initialState, action) => {
           numberOrder: {},
         };
       }
-      
-  
-      default: {
+    default: {
         return state;
       }
     }

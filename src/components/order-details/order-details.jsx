@@ -2,14 +2,16 @@ import React from "react";
 import styles from "./order-details.module.css";
 import DoneIcon from "../../images/graphics.png";
 import { useSelector } from 'react-redux';
-
+import { Loader } from "../ui/loader/loader"; 
 function OrderDetails() {
   
-const numberOrder = useSelector((state) => state.order.numberOrder)
+const { numberOrder, orderRequest } = useSelector((state) => state.order)
 
   return (
     <div className={`mb-15 ${styles.container}`}>
-      <span className="text text_type_digits-large mb-8">{numberOrder.number}</span>
+      { orderRequest ? <Loader size="large" /> :
+      <span className="text text_type_digits-large mb-8">{numberOrder.number}</span> 
+    }
       <span className="text text_type_main-medium mb-15">
         Идентификатор заказа
       </span>
