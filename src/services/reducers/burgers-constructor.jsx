@@ -4,10 +4,11 @@ import {
   SORT_INGREDIENTS,
 } from "../actions/burgers-constructor.jsx";
 
+import { GET_ORDER_SUCCESS } from "../actions/order-details.jsx";
+
 export const initialState = {
   addedIngredients: [],
   currentTab: "buns",
-  scrollTarget: "",
 };
 
 export const constructorReducer = (state = initialState, action) => {
@@ -31,6 +32,12 @@ export const constructorReducer = (state = initialState, action) => {
         addedIngredients: state.addedIngredients.filter(
           (item, index) => index !== action.index
         ),
+      };
+    }
+    case GET_ORDER_SUCCESS: {
+      return {
+        ...state,
+        addedIngredients: []
       };
     }
     case SORT_INGREDIENTS: {

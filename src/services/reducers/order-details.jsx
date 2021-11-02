@@ -9,7 +9,7 @@ export const initialState = {
     numberOrder: {},
     orderRequest: false,
     orderRequestFaild: false,
-};
+  };
 
 export const orderReducer = (state = initialState, action) => {
     switch (action.type) {

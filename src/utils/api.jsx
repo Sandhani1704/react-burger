@@ -1,9 +1,11 @@
-const BASE_URL = 'https://norma.nomoreparties.space/api/ingredients';
-const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
+const BASE_URL = 'https://norma.nomoreparties.space/api';
+
+const INGREDIENTS_URL = `${BASE_URL}/ingredients`;
+const ORDER_URL = `${BASE_URL}/orders`;
 
 export function getIngredients() {
     return (
-      fetch(BASE_URL)
+      fetch(INGREDIENTS_URL)
         .then(res => {
           if (res.ok)
             return res.json()

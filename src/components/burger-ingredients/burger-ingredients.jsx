@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import IngredientItem from "../ingredient-item/ingredient-item";
 import styles from "./burger-ingredients.module.css";
 import Tabs from "../tabs/tabs";
@@ -7,7 +7,7 @@ import {
   DISPLAY_INGREDIENT_INFO,
   HIDE_INGREDIENT_INFO,
 } from "../../services/actions/ingredient-details";
-import { getItems } from "../../services/actions/burger-ingredients-data";
+
 import { Loader } from "../ui/loader/loader"; 
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
@@ -16,19 +16,11 @@ function BurgerIngredients() {
   const [popupOpen, setPopupOpen] = React.useState(false);
 
   const dispatch = useDispatch();
-  const { ingredients, itemsRequest } = useSelector(
+  const { ingredients, itemsRequest, itemsFailed } = useSelector(
     (state) => state.burgerIngredientsData
   );
 
-  useEffect(() => {
-    dispatch(getItems());
-  }, [dispatch]);
-
-  const loader = useMemo(() => {
-    return itemsRequest && <Loader size="large" />;
-  }, [itemsRequest]);
-
-  const onIngredientClick = (info) => {
+const onIngredientClick = (info) => {
     if (popupOpen) return;
     setPopupOpen(true);
     dispatch({ type: DISPLAY_INGREDIENT_INFO, info });
@@ -62,7 +54,7 @@ function BurgerIngredients() {
 
       if (isShouldChangeActiveTab(buns)) {
         setActiveTab({
-          sauce: "",
+          sauces: "",
           buns: "buns",
           main: "",
         });
@@ -76,9 +68,10 @@ function BurgerIngredients() {
       }
       if (isShouldChangeActiveTab(main)) {
         setActiveTab({
-          sauces: "",
-          buns: "",
+          sauces: '',
+          buns: '',
           main: "main",
+          
         });
       }
       
@@ -93,9 +86,13 @@ function BurgerIngredients() {
   return (
     <div className={`${styles.types} `}>
       <Tabs activeTab={activeTab} />
+      
+      
       <div className={styles.container} id="ingredientCont">
-        {loader}
-        <section className={`${styles.content} mb-10`}  id="buns">
+      {itemsRequest ? <Loader size="large" /> :
+          ( itemsFailed ? <p className="text text_type_main-medium">Произошла ошибка. Перезагрузите браузер.</p> : 
+          <>
+          <section className={`${styles.content} mb-10`}  id="buns">
           <h2 className="text text_type_main-medium mb-6">Булки</h2>
           <div className={styles.list}>
             {ingredients
@@ -142,6 +139,7 @@ function BurgerIngredients() {
               ))}
           </div>
         </section>
+        </>)}
       </div>
       {popupOpen && (
         <Modal title="Детали ингредиента" onModalHideClick={onModalHideClick}>
