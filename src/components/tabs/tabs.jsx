@@ -1,23 +1,31 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './tabs.module.css';
+import PropTypes from 'prop-types';
 
-function Tabs() {
-  const [current, setCurrent] = React.useState('buns');
-   
+function Tabs({activeTab}) {
+  
   return (
-    <div className={`${styles.tabs} mt-5 mb-10`}>
-      <Tab value='buns' active={current === "buns"} onClick={setCurrent}>
+    <div className={`${styles.tabs} mt-5 mb-10`} id='tabs'>
+      <Tab value='buns' active={activeTab.buns} >
         Булки
       </Tab>
-      <Tab value="sauces" active={current === "sauces"} onClick={setCurrent}>
+      <Tab value="sauces" active={activeTab.sauces} >
         Соусы
       </Tab>
-      <Tab value="main" active={current === "main"} onClick={setCurrent}>
+      <Tab value="main" active={activeTab.main} >
         Начинки
       </Tab>
     </div>
   );
 }
+
+Tabs.propTypes = {
+  activeTab: PropTypes.shape({
+    buns: PropTypes.string.isRequired,
+    sauces: PropTypes.string.isRequired,
+    main: PropTypes.string.isRequired,
+  }),
+};
 
 export default Tabs;

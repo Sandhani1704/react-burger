@@ -29,3 +29,4 @@ export const ingredientPropTypes = PropTypes.shape({
     __v: PropTypes.number,
     _id: PropTypes.string,
   });
+  

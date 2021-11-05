@@ -1,12 +1,21 @@
 import React from "react";
 import styles from "./order-details.module.css";
 import DoneIcon from "../../images/graphics.png";
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { Loader } from "../ui/loader/loader"; 
+function OrderDetails() {
+  
+const { numberOrder, orderRequest, orderRequestFaild } = useSelector((state) => state.order)
 
-function OrderDetails({orderData}) {
   return (
     <div className={`mb-15 ${styles.container}`}>
-      <span className="text text_type_digits-large mb-8">{orderData.number}</span>
+      { orderRequest ? <Loader size="large" /> :
+
+      ( orderRequestFaild ? (
+          <p className="text text_type_main-medium">Произошла ошибка. Попробуйте ещё раз.</p>
+        ) : (<>
+      <span className="text text_type_digits-large mb-8">{numberOrder.number}</span> 
+    
       <span className="text text_type_main-medium mb-15">
         Идентификатор заказа
       </span>
@@ -16,20 +25,15 @@ function OrderDetails({orderData}) {
         alt="иконка готовности"
       />
       <span className="text text_type_main-default  mb-2">
-        {orderData.status}
+        Ваш заказ начали готовить
       </span>
       <span className="text text_type_main-small text_color_inactive mb-30">
-        {orderData.wait}
+        Дождитесь готовности на орбитальной станции
       </span>
+      </>) )
+      }
     </div>
   );
-}
-  OrderDetails.propTypes = {
-    orderData: PropTypes.shape({
-        number: PropTypes.string.isRequired,
-        status: PropTypes.string.isRequired,
-        wait: PropTypes.string.isRequired,
-    }).isRequired,
 }
 
 export default OrderDetails;
