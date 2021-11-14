@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import styles from './login-page.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../services/actions/user-info';
 
 function LoginPage() {
+  const { userUnfo } = useSelector((store) => store.userInfo);
+  const dispatch = useDispatch();
+  console.log(userUnfo)
   const [emailValue, setEmail] = useState('');
   const [passwordValue, setPassword] = useState('');
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(loginUser(emailValue, passwordValue))
+  }
+
+  if (userUnfo.email)
+    return <Redirect to='/' exact={true}/>
+
   return (
-    <form className={styles.content}>
+    <form className={styles.content} onSubmit={submitHandler}>
       <h1 className='text text_type_main-medium'>Вход</h1>
       <Input
         type='email'

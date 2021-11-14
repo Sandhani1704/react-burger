@@ -5,6 +5,7 @@ import LoginPage from "../../pages/login-page/login-page";
 import RegistrationPage from "../../pages/registration-page/registration-page";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
+import ProfilePage from '../../pages/profile-page/profile-page';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -35,6 +36,9 @@ function Main() {
       </Route>
       <Route exact path="/forgot-password">
         <ForgotPassword />
+      </Route>
+      <Route exact path="/profile">
+        <ProfilePage />
       </Route>
     </main>
   );

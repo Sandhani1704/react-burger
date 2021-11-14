@@ -1,15 +1,28 @@
 import React, { useState } from 'react';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import styles from './registration-page.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../../services/actions/user-info';
 
 function RegistrationPage() {
+  const { userUnfo } = useSelector((store) => store.userInfo);
+  const dispatch = useDispatch();
+  console.log(userUnfo)
   const [emailValue, setEmail] = useState('');
   const [nameValue, setName] = useState('');
   const [passwordValue, setPassword] = useState('');
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(registerUser(nameValue, emailValue, passwordValue))
+  }
+
+  if (userUnfo)
+    return <Redirect to='/' exact={true}/>
+
   return (
-    <form className={styles.content}>
+    <form className={styles.content} onSubmit={submitHandler}>
       <h1 className='text text_type_main-medium'>Регистрация</h1>
       <Input
         type='text'
