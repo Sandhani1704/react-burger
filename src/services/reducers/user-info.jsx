@@ -6,7 +6,7 @@ import {
     } from "../actions/user-info.jsx";
 
     export const initialState = {
-        userUnfo: {},
+        userUnfo: {name: '', email: ''},
         userRequest: false,
         userRequestFaild: false,
       };
@@ -36,7 +36,7 @@ import {
             return {
               ...state,
               userRequestFaild: false,
-              userUnfo: {},
+              userUnfo: { name: '', email: '' },
             };
           }
         default: {

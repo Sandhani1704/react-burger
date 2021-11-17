@@ -13,16 +13,16 @@ function RegistrationPage() {
   const [nameValue, setName] = useState('');
   const [passwordValue, setPassword] = useState('');
 
-  const submitHandler = (e) => {
+  const handleRegisterSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser(nameValue, emailValue, passwordValue))
   }
 
-  if (userUnfo)
+  if (userUnfo.email)
     return <Redirect to='/' exact={true}/>
 
   return (
-    <form className={styles.content} onSubmit={submitHandler}>
+    <form className={styles.content} onSubmit={handleRegisterSubmit}>
       <h1 className='text text_type_main-medium'>Регистрация</h1>
       <Input
         type='text'

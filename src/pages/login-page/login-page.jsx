@@ -4,15 +4,16 @@ import { NavLink, Redirect } from 'react-router-dom';
 import styles from './login-page.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../services/actions/user-info';
+import { getCookie, setCookie } from "../../utils/cookies";
 
 function LoginPage() {
   const { userUnfo } = useSelector((store) => store.userInfo);
   const dispatch = useDispatch();
-  console.log(userUnfo)
+  console.log(getCookie("accessToken"));
   const [emailValue, setEmail] = useState('');
   const [passwordValue, setPassword] = useState('');
 
-  const submitHandler = (e) => {
+  const handleLoginSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser(emailValue, passwordValue))
   }
@@ -21,7 +22,7 @@ function LoginPage() {
     return <Redirect to='/' exact={true}/>
 
   return (
-    <form className={styles.content} onSubmit={submitHandler}>
+    <form className={styles.content} onSubmit={handleLoginSubmit}>
       <h1 className='text text_type_main-medium'>Вход</h1>
       <Input
         type='email'

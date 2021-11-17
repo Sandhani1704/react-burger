@@ -7,8 +7,12 @@ import {
   ProfileIcon,
   Logo,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useSelector, useDispatch } from "react-redux";
 
 function AppHeader() {
+
+  const { userUnfo } = useSelector((store) => store.userInfo);
+
   return (
     <header className={`${styles.header} pt-4 pb-4`}>
       <nav className={`${styles.content}`}>
@@ -29,7 +33,7 @@ function AppHeader() {
         <div className={styles.center}>
           <Logo />
         </div>
-        <NavLink className={styles.right + " pl-5 pr-5 pt-4 pb-4"} exact to='/profile' activeClassName={styles.active}>
+        <NavLink className={styles.right + " pl-5 pr-5 pt-4 pb-4"} exact to={userUnfo.email ? "/profile" : "/login"} activeClassName={styles.active}>
             <ProfileIcon />
             <p className={"text text_type_main-default ml-2 mr-5"}>
               Личный кабинет
