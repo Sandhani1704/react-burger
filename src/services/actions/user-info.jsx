@@ -5,22 +5,23 @@ import {
   getUserInfo,
   refreshToken,
   updateUser,
+  forgotPassword,
+  setNewPassword,
 } from "../../utils/api-requests";
-import { getCookie, setCookie, getToken } from "../../utils/cookies";
+import { setCookie, getToken } from "../../utils/cookies";
 export const GET_USER_REQUEST = "GET_USER_REQUEST";
 export const SET_USER_INFO = "SET_USER_INFO";
 export const REMOVE_USER_INFO = "REMOVE_USER_INFO";
-export const SET_REQUEST_FAILD = "SET_REQUEST_FAILD";
-export const GET_USER_INFO_REQUEST_ERROR = "GET_USER_INFO_REQUEST_ERROR";
-export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS'; 
-export const REFRESH_TOKEN_ERROR = 'REFRESH_TOKEN_ERROR';
+export const RESPONSED_EMAIL = 'RESPONSED_EMAIL';
+export const SET_LOGIN_REQUEST_ERROR = 'SET_LOGIN_REQUEST_ERROR';
+export const SET_REGISTER_REQUEST_ERROR = 'SET_REGISTER_REQUEST_ERROR';
+export const SET_LOGOUT_REQUEST_ERROR = 'SET_LOGOUT_REQUEST_ERROR';
 
 const setAuth = (res, dispatch) => {
-  setCookie("accessToken", getToken(res.accessToken), {
-    expires: 24 * 60 * 60,
-  });
+  setCookie("accessToken", getToken(res.accessToken), 
+    { expires: 24*60*60 },
+  );
   localStorage.setItem("refreshToken", getToken(res.refreshToken));
-  //localStorage.removeItem('resetPassword');
   dispatch({ type: SET_USER_INFO, user: res.user });
 };
 
@@ -28,40 +29,26 @@ export const registerUser = (name, email, password) => (dispatch) => {
   registration(name, email, password)
     .then((res) => {
       if (res.success === true) {
-        //dispatch({ type: SET_USER_INFO, user: res.user });
-        //console.log(res)
         setAuth(res, dispatch);
         return;
-      }
-
+      } 
       return Promise.reject(res);
-    })
-    .catch((err) =>
-      dispatch({
-        type: SET_REQUEST_FAILD,
-        message: `Ошибка регистрации ${err.message}`,
-      })
-    );
+    })  
+    .catch(err => dispatch({ type: SET_REGISTER_REQUEST_ERROR, message: `Ошибка регистрации: ${err.message}` }))
 };
 
 export const loginUser = (email, password) => (dispatch) => {
   login(email, password)
     .then((res) => {
+      console.log(res)
       if (res.success === true) {
-        //dispatch({ type: SET_USER_INFO, user: res.user });
         setAuth(res, dispatch);
-        //console.log(getCookie("accessToken"))
         return;
-      }
+      } 
 
       return Promise.reject(res);
     })
-    .catch((err) =>
-      dispatch({
-        type: SET_REQUEST_FAILD,
-        message: `Ошибка авторизации ${err.message}`,
-      })
-    );
+    .catch(err => dispatch({ type: SET_LOGIN_REQUEST_ERROR, message: `Ошибка авторизации: ${err.message}` }))
 };
 
 export const logout = (history) => (dispatch) => {
@@ -73,39 +60,34 @@ export const logout = (history) => (dispatch) => {
         dispatch({ type: REMOVE_USER_INFO });
         history.push('/login');
         return;
+      } 
+      else {
+        history.push('/profile');
+        console.log(res.message)
+        return Promise.reject(res);
       }
-
-      return Promise.reject(res);
     })
-    .catch((err) =>
-      dispatch({
-        type: SET_REQUEST_FAILD,
-        message: `Ошибка авторизации ${err.message}`,
-      })
-    );
+    .catch(err => {
+      dispatch({ type: SET_LOGOUT_REQUEST_ERROR, message: `Ошибка сервера ${err.message}` })
+      history.push('/profile');
+    })
 };
 
 export const updateToken = (cb) => (dispatch) => {
   refreshToken()
-    .then((res) => {
-      if (res && res.success) {
-        localStorage.setItem("refreshToken", res.data.refreshToken);
-        setCookie("accessToken", res.data.accessToken);
+    .then((data) => {
+      if (data && data.success) {
+        console.log(data.accessToken)
+        setCookie('accessToken', getToken(data.accessToken), { expires: 24*60*60 });
+        localStorage.setItem('refreshToken', data.refreshToken);
         cb();
-        dispatch({
-          type: REFRESH_TOKEN_SUCCESS,
-          token: res.data,
-        });
       } else {
-        dispatch({
-          type: REFRESH_TOKEN_ERROR,
-        });
+        console.log(data);
       }
     })
     .catch((err) => {
-      dispatch({
-        type: REFRESH_TOKEN_ERROR,
-      });
+      console.log(err);
+      return Promise.reject(err);
     });
 };
 
@@ -123,9 +105,7 @@ export const getUser = () => (dispatch) => {
       return Promise.reject(res);
     })
     .catch((err) => {
-      dispatch({
-        type: GET_USER_INFO_REQUEST_ERROR,
-      });
+      console.log(err)
       if (err.message === "jwt expired") {
         dispatch(updateToken(getUser));
       } 
@@ -146,11 +126,48 @@ export const updateUserInfo = (name, email, password) => (dispatch) => {
     return Promise.reject(res);
   })
   .catch((err) => {
-    dispatch({
-      type: GET_USER_INFO_REQUEST_ERROR,
-    });
+    console.log(err)
     if (err.message === "jwt expired") {
       dispatch(updateToken(getUser));
     } 
   });
 }
+
+export const passwordReset = (email, history) => (dispatch) => {
+  forgotPassword(email)
+  .then((res) => {
+    if (res.success === true) {
+      console.log(res)
+      
+      dispatch({
+        type: RESPONSED_EMAIL,
+      });
+      history.push('/reset-password');
+      return;
+    }
+
+    return Promise.reject(res);
+  })
+  .catch((err) => {
+    console.log(err)
+    return Promise.reject(err);
+  });
+}
+
+export const setNewPasswordValue = (password, token, history) => (dispatch) => {
+  setNewPassword(password, token)
+  .then((res) => {
+    if (res.success === true) {
+      console.log(res)
+      history.push('/login');
+      return;
+    }
+
+    return Promise.reject(res);
+  })
+  .catch((err) => {
+    console.log(err)
+    return Promise.reject(err);
+  });
+}
+

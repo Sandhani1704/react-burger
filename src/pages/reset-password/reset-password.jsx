@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink } from 'react-router-dom';
-import styles from './forgot-password.module.css';
+import { NavLink, Redirect, useHistory } from "react-router-dom";
+import styles from './reset-password.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNewPasswordValue} from '../../services/actions/user-info';
 
 function ResetPassword() {
+  const history = useHistory();
+  const dispatch = useDispatch()
+  const { isResponsedEmail } = useSelector((store) => store.userInfo);
   const [passwordValue, setPassword] = useState('');
   const [code, setCode] = useState('');
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    dispatch(setNewPasswordValue(passwordValue, code, history))
+  }
+
+  if (!isResponsedEmail)
+    return <Redirect to='/login' />
   
   return (
-    <form className={styles.content}>
+    <form className={styles.content} onSubmit={handlePasswordSubmit}>
       <h1 className='text text_type_main-medium'>Восстановление пароля</h1>
       <PasswordInput
         name='password'

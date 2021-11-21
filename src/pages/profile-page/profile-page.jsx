@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styles from "./profile-page.module.css";
-import { NavLink, Redirect, useHistory } from "react-router-dom";
+import ProfileNavigation from "../../components/profile-navigation/profile-navigation";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  logout,
   updateUserInfo,
-  getUser,
-} from "../../services/actions/user-info";
+  } from "../../services/actions/user-info";
 
 function ProfilePage() {
   const { userUnfo } = useSelector((store) => store.userInfo);
-  console.log(userUnfo);
   const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     name: "",
@@ -27,22 +24,10 @@ function ProfilePage() {
     password: false,
   });
 
-  const history = useHistory();
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
-
   useEffect(() => {
     setUserData({ name: userUnfo.name, email: userUnfo.email, password: "" });
     setIsChanged({ name: false, email: false, password: false });
   }, [userUnfo]);
-
-  const handleLogOut = (e) => {
-    e.preventDefault();
-    dispatch(logout(history));
-    history.replace({ pathname: "/login" });
-  };
 
   const handleUpdateUserSubmit = (e) => {
     e.preventDefault();
@@ -94,41 +79,9 @@ function ProfilePage() {
   const isSomeChanges = Object.values(isChanged).some(Boolean);
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.profile}>
-        <nav className={styles.nav}>
-          <NavLink
-            exact
-            to="/profile"
-            className={styles.link}
-            activeClassName={styles.active}
-          >
-            <p className="text text_type_main-default text_color_inactive">
-              Профиль
-            </p>
-          </NavLink>
-          <NavLink
-            exact
-            to="/profile/orders"
-            className={styles.link}
-            activeClassName={styles.active}
-          >
-            <p className="text text_type_main-default text_color_inactive">
-              История заказов
-            </p>
-          </NavLink>
-          <NavLink
-            exact
-            to="/login"
-            className={styles.link}
-            activeClassName={styles.active}
-            onClick={handleLogOut}
-          >
-            <p className="text text_type_main-default text_color_inactive">
-              Выход
-            </p>
-          </NavLink>
-        </nav>
+      <ProfileNavigation />
 
         <form className={styles["cont-input"]}>
           <Input
@@ -184,7 +137,7 @@ function ProfilePage() {
       >
         В этом разделе вы можете изменить свои персональные данные
       </p>
-    </>
+    </div>
   );
 }
 

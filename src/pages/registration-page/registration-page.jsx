@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink, Redirect } from 'react-router-dom';
 import styles from './registration-page.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../services/actions/user-info';
+import { SET_REGISTER_REQUEST_ERROR } from "../../services/actions/user-info";
 
 function RegistrationPage() {
-  const { userUnfo } = useSelector((store) => store.userInfo);
+  const { userUnfo, registerError } = useSelector((store) => store.userInfo);
   const dispatch = useDispatch();
-  console.log(userUnfo)
   const [emailValue, setEmail] = useState('');
   const [nameValue, setName] = useState('');
   const [passwordValue, setPassword] = useState('');
@@ -17,6 +17,10 @@ function RegistrationPage() {
     e.preventDefault();
     dispatch(registerUser(nameValue, emailValue, passwordValue))
   }
+
+  useEffect(() => {
+    dispatch({ type: SET_REGISTER_REQUEST_ERROR })
+  }, [dispatch]);
 
   if (userUnfo.email)
     return <Redirect to='/' exact={true}/>
@@ -50,6 +54,12 @@ function RegistrationPage() {
       <p className='text text_type_main-default text_color_inactive mt-20'>
       Уже зарегистрированы? <NavLink className={styles.link} to='/login'>Войти</NavLink>
       </p>
+      {registerError
+        ? <p className={`${styles.error} text text_type_main-default mt-10`}>
+            {registerError}
+          </p>
+        : null
+      }
     </form>
   )
 }

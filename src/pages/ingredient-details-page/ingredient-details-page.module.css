@@ -1,0 +1,7 @@
+.title {
+  display: flex;
+  min-height: 64px;
+  justify-content: center;
+  align-items: center;
+  margin: 120px auto 0;
+}

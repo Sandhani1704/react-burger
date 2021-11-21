@@ -9,5 +9,8 @@ export const getOrderNumber = (ingredients) => (dispatch) => {
     dispatch({ type: GET_ORDER_REQUEST });
     getOrder(ingredients)
       .then(res => dispatch({ type: GET_ORDER_SUCCESS, order: res.order }))
-      .catch(err => dispatch({ type: GET_ORDER_FAILED }))
+      .catch(err => {
+        dispatch({ type: GET_ORDER_FAILED })
+        console.log(err)
+      })
   }

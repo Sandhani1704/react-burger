@@ -1,12 +1,19 @@
 import { getCookie } from "./cookies";
+import { BASE_URL } from "./constants";
 
-const BASE_URL = "https://norma.nomoreparties.space/api";
 const REGISTRATION_ADDRESS = `${BASE_URL}/auth/register`;
 const LOGIN_ADDRESS = `${BASE_URL}/auth/login`;
 const GET_USER_ADDRESS = `${BASE_URL}/auth/user`;
 const LOGOUT_ADDRESS = `${BASE_URL}/auth/logout`;
 const REFRESH_TOKEN_ADDRESS = `${BASE_URL}/auth/token`;
-export const SET_USER_INFO = "SET_USER_INFO";
+const PASSWORD_RESET_ADDRESS = `${BASE_URL}/password-reset`;
+const SET_NEW_PASSWORD = `${BASE_URL}/password-reset/reset`;
+
+const checkResponse = (res) => {
+  return res.ok
+    ? res.json() 
+    : res.json().then((err) => Promise.reject(err)); 
+};
 
 export function registration(name, email, password) {
   return fetch(REGISTRATION_ADDRESS, {
@@ -15,12 +22,8 @@ export function registration(name, email, password) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password, name }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(res.status);
-  });
+  })
+  .then(res => checkResponse(res))
 }
 
 export function login(email, password) {
@@ -30,13 +33,8 @@ export function login(email, password) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-
-    return Promise.reject(res.status);
-  });
+  })
+  .then(res => checkResponse(res))
 }
 
 export function getUserInfo() {
@@ -46,11 +44,8 @@ export function getUserInfo() {
       "Content-Type": "application/json",
       Authorization: "Bearer " + getCookie("accessToken"),
     },
-  }).then((res) => {
-    if (res.ok) return res.json();
-
-    return Promise.reject(res.status);
-  });
+  })
+  .then(res => checkResponse(res))
 }
 
 export function logOut() {
@@ -60,14 +55,11 @@ export function logOut() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
+    token: localStorage.getItem("refreshToken"),
     }),
-  }).then((res) => {
-    if (res.ok) return res.json();
-
-    return Promise.reject(res.status);
-  });
-}
+  })
+    .then(res => checkResponse(res))
+  }
 
 export function refreshToken() {
   return fetch(REFRESH_TOKEN_ADDRESS, {
@@ -78,11 +70,8 @@ export function refreshToken() {
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
     }),
-  }).then((res) => {
-    if (res.ok) return res.json();
-
-    return Promise.reject(res.status);
-  });
+  })
+  .then(res => checkResponse(res))
 }
 
 export function updateUser(name, email, password) {
@@ -93,9 +82,35 @@ export function updateUser(name, email, password) {
       Authorization: "Bearer " + getCookie("accessToken"),
     },
     body: JSON.stringify({ name, email, password }),
-  }).then((res) => {
-    if (res.ok) return res.json();
-
-    return Promise.reject(res.status);
-  });
+  })
+    // .then((res) => {
+    //   return res.json();
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    //   return Promise.reject(err);
+    // });
+    .then(res => checkResponse(res))
 }
+
+export function forgotPassword(email) {
+  return fetch(PASSWORD_RESET_ADDRESS, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  })
+  .then(res => checkResponse(res))
+}
+
+export function setNewPassword(password, token) {
+  return fetch(SET_NEW_PASSWORD, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ password, token })
+    })
+    .then(res => checkResponse(res))
+  }
