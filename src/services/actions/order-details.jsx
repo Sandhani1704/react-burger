@@ -1,4 +1,5 @@
 import { getOrder } from '../../utils/api';
+import { updateToken, getUser } from './user-info';
 
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
@@ -12,5 +13,8 @@ export const getOrderNumber = (ingredients) => (dispatch) => {
       .catch(err => {
         dispatch({ type: GET_ORDER_FAILED })
         console.log(err)
+        if (err.message === "jwt expired") {
+          dispatch(updateToken(getUser));
+        }
       })
   }

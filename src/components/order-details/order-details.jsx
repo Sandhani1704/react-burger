@@ -10,6 +10,7 @@ const { numberOrder, orderRequest, orderRequestFaild } = useSelector((state) => 
 const { userUnfo } = useSelector((store) => store.userInfo);
 if (!userUnfo.email)
     return <Redirect to='/login'/>
+    console.log(orderRequestFaild)
 
   return (
     <div className={`mb-15 ${styles.container}`}>
