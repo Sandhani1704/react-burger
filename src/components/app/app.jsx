@@ -17,6 +17,7 @@ import { getUser } from "../../services/actions/user-info";
 import { getItems } from "../../services/actions/burger-ingredients-data";
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getUser());
     dispatch(getItems());
