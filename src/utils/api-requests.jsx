@@ -1,4 +1,4 @@
-import { getCookie, setCookie } from "./cookies";
+import { getCookie } from "./cookies";
 import { BASE_URL } from "./constants";
 
 const REGISTRATION_ADDRESS = `${BASE_URL}/auth/register`;
@@ -74,27 +74,6 @@ export const refreshToken = async () => {
   return checkResponse(res)
 }
 
-// export const retriableFetch = async (url, options = {}) => {
-//   try {
-//     const res = await fetch(url, options);
-//     const result = await checkResponse(res);
-//     return result; // или можно сделать return await; главное дождаться промиса, чтоб catch сработал при ошибке
-//   } catch (err) {
-//     // сначала убеждаемся, что это не любая ошибка, а нужно токен обновить
-//     if (err.message === "jwt expired") {
-//       const refreshData = await refreshToken(); // обновляем токен; пытаемся 1 раз, если не сложилось -- падаем с ошибкой
-//       localStorage.setItem("refreshToken", refreshData.refreshToken); 
-//       setCookie("accessToken", refreshData.accessToken); // тут для примера accessToken храним в куке
-//       options.headers ??= {} // если в переданных опциях не было хедеров, добавляем в options пустой объект по ключу headers
-//       options.headers.authorization = refreshData.accessToken;
-//       const res = await fetch(url, options); // повторяем оригинальный запрос с оригинальными options (+ дополнительным хедером)
-//       return await checkResponse(res); // если все равно проваливаемся -- значит не судьба :/
-//     } else {
-//       throw err;
-//     }
-//   }
-// };
-
 export function updateUser(name, email, password) {
   return fetch(GET_USER_ADDRESS, {
     method: "PATCH",
@@ -104,13 +83,6 @@ export function updateUser(name, email, password) {
     },
     body: JSON.stringify({ name, email, password }),
   })
-    // .then((res) => {
-    //   return res.json();
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    //   return Promise.reject(err);
-    // });
     .then(res => checkResponse(res))
 }
 
