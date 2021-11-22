@@ -20,10 +20,8 @@ export const SET_REGISTER_REQUEST_ERROR = "SET_REGISTER_REQUEST_ERROR";
 export const SET_LOGOUT_REQUEST_ERROR = "SET_LOGOUT_REQUEST_ERROR";
 
 const setAuth = (res, dispatch) => {
-  // setCookie("accessToken", getToken(res.accessToken), {
-  //   expires: 24 * 60 * 60,
-  // });
   setCookie("accessToken", getToken(res.accessToken));
+  //setCookie("accessToken", getToken(res.accessToken));
   localStorage.setItem("refreshToken", getToken(res.refreshToken));
   dispatch({ type: SET_USER_INFO, user: res.user });
 };
@@ -112,7 +110,7 @@ export const getUser = () => (dispatch) => {
 export const updateUserInfo = (name, email, password) => (dispatch) => {
   updateUser(name, email, password)
     .then((res) => {
-      if (res.success === true) {
+    if (res.success === true) {
         dispatch({
           type: SET_USER_INFO,
           user: res.user,
@@ -125,18 +123,19 @@ export const updateUserInfo = (name, email, password) => (dispatch) => {
     .catch((err) => {
       console.log(err);
       if (err.message === "jwt expired") {
-        dispatch(updateToken(getUser));
+        dispatch(updateToken(updateUserInfo, name, email, password));
+        return;
       }
     });
 };
 
-export const updateToken = (getUser) => (dispatch) => {
+export const updateToken = (getUser, ...args) => (dispatch) => {
   refreshToken()
     .then((data) => {
       console.log(data)
       setCookie("accessToken", getToken(data.accessToken));
       localStorage.setItem("refreshToken", data.refreshToken);
-      dispatch(getUser());
+      dispatch(getUser(...args));
     })
     .catch((err) => dispatch({ type: REMOVE_USER_INFO }));
 };

@@ -3,11 +3,13 @@ import styles from "./order-details.module.css";
 import DoneIcon from "../../images/graphics.png";
 import { useSelector } from 'react-redux';
 import { Loader } from "../ui/loader/loader";
-import { Redirect } from 'react-router-dom'; 
+import { Redirect } from 'react-router-dom';
+
 function OrderDetails() {
   
 const { numberOrder, orderRequest, orderRequestFaild } = useSelector((state) => state.order)
 const { userUnfo } = useSelector((store) => store.userInfo);
+
 if (!userUnfo.email)
     return <Redirect to='/login'/>
     
