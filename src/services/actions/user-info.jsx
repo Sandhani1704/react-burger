@@ -20,9 +20,10 @@ export const SET_REGISTER_REQUEST_ERROR = "SET_REGISTER_REQUEST_ERROR";
 export const SET_LOGOUT_REQUEST_ERROR = "SET_LOGOUT_REQUEST_ERROR";
 
 const setAuth = (res, dispatch) => {
-  setCookie("accessToken", getToken(res.accessToken), {
-    expires: 24 * 60 * 60,
-  });
+  // setCookie("accessToken", getToken(res.accessToken), {
+  //   expires: 24 * 60 * 60,
+  // });
+  setCookie("accessToken", getToken(res.accessToken));
   localStorage.setItem("refreshToken", getToken(res.refreshToken));
   dispatch({ type: SET_USER_INFO, user: res.user });
 };
@@ -132,9 +133,8 @@ export const updateUserInfo = (name, email, password) => (dispatch) => {
 export const updateToken = (getUser) => (dispatch) => {
   refreshToken()
     .then((data) => {
-      setCookie("accessToken", getToken(data.accessToken), {
-        expires: 24 * 60 * 60,
-      });
+      console.log(data)
+      setCookie("accessToken", getToken(data.accessToken));
       localStorage.setItem("refreshToken", data.refreshToken);
       dispatch(getUser());
     })
