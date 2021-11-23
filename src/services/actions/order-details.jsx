@@ -11,11 +11,11 @@ export const getOrderNumber = (ingredients) => (dispatch) => {
     getOrder(ingredients)
       .then(res => dispatch({ type: GET_ORDER_SUCCESS, order: res.order }))
       .catch(err => {
-        dispatch({ type: GET_ORDER_FAILED })
-        console.log(err)
+      console.log(err)
         if (err.message === "jwt expired") {
           dispatch(updateToken(getOrderNumber, ingredients));
-          return
+          return;
         }
+        dispatch({ type: GET_ORDER_FAILED })
       })
   }
