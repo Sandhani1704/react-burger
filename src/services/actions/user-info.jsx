@@ -20,7 +20,7 @@ export const SET_REGISTER_REQUEST_ERROR = "SET_REGISTER_REQUEST_ERROR";
 export const SET_LOGOUT_REQUEST_ERROR = "SET_LOGOUT_REQUEST_ERROR";
 
 const setAuth = (res, dispatch) => {
-  setCookie("accessToken", getToken(res.accessToken));
+  setCookie("accessToken", getToken(res.accessToken), { 'max-age': 1200 });
   //setCookie("accessToken", getToken(res.accessToken));
   localStorage.setItem("refreshToken", getToken(res.refreshToken));
   dispatch({ type: SET_USER_INFO, user: res.user });
@@ -133,7 +133,7 @@ export const updateToken = (getUser, ...args) => (dispatch) => {
   refreshToken()
     .then((data) => {
       console.log(data)
-      setCookie("accessToken", getToken(data.accessToken));
+      setCookie("accessToken", getToken(data.accessToken), { 'max-age': 1200 });
       localStorage.setItem("refreshToken", data.refreshToken);
       dispatch(getUser(...args));
     })

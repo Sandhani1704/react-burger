@@ -15,7 +15,8 @@ import UserOrders from "../../pages/user-orders/user-orders";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../services/actions/user-info";
 import { getItems } from "../../services/actions/burger-ingredients-data";
-function App() {
+
+function App () {
   const dispatch = useDispatch();
 
   useEffect(() => {

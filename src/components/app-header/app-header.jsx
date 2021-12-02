@@ -24,7 +24,7 @@ function AppHeader() {
             to="/"
             activeClassName={styles.active}
           >
-            <BurgerIcon />
+            <BurgerIcon type="secondary" />
             <p className={"text text_type_main-default ml-2 mr-5"}>
               Конструктор
             </p>
