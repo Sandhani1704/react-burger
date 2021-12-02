@@ -21,13 +21,13 @@
 .item {
   display: flex;
   align-items: center;
-  color: white;
+  //color: white;
   border: none;
   text-decoration: none;
   justify-content: center;
-  background: inherit;
+  //background: inherit;
   width: 100%;
-  background: #1c1c21;
+  //background: #1c1c21;
   border: none;
   display: flex;
   align-items: center;
@@ -36,21 +36,7 @@
 }
 
 .item__profile {
-  color: white;
-  border: none;
-  text-decoration: none;
-  justify-content: center;
-  background: inherit;
-  background: #1c1c21;
-  border: none;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  cursor: pointer;
-}
-.item__profile:hover {
-  opacity: 0.8;
-  transition: 0.3s ease;
+  
 }
 
 .item:hover {
@@ -73,8 +59,51 @@
 }
 
 .right {
+  text-decoration: none;
   display: flex;
   width: 207px;
   margin-left: auto;
   justify-content: flex-end;
+
+  color: white;
+  border: none;
+  text-decoration: none;
+  justify-content: center;
+  background: inherit;
+  background: #1c1c21;
+  border: none;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.right:hover {
+  opacity: 0.8;
+  transition: 0.3s ease;
+}
+
+
+.right svg {
+  fill: var(--text-inactive-color)
+}
+
+.right p {
+  color: var(--text-inactive-color)
+}
+
+.item svg {
+  fill: var(--text-inactive-color)
+}
+
+.item p {
+  color: var(--text-inactive-color)
+}
+
+.active svg {
+  fill: var(--text-primary-color);
+}
+
+.active p {
+  color: var(--text-primary-color)
 }

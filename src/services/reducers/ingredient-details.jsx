@@ -4,7 +4,7 @@ import {
 } from "../actions/ingredient-details.jsx";
 
 export const initialState = {
-  selectedIngredient: {},
+  selectedIngredient: null,
 };
 
 export const ingredientReducer = (state = initialState, action) => {
@@ -13,7 +13,7 @@ export const ingredientReducer = (state = initialState, action) => {
       return { ...state, selectedIngredient: action.info };
     }
     case HIDE_INGREDIENT_INFO: {
-      return { ...state, selectedIngredient: {} };
+      return { ...state, selectedIngredient: null };
     }
     default: {
       return state;

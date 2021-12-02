@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import styles from "./app-header.module.css";
 import {
   BurgerIcon,
@@ -6,36 +7,58 @@ import {
   ProfileIcon,
   Logo,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useLocation } from "react-router-dom";
 
 function AppHeader() {
+  const location = useLocation();
+
+  const isActive = location.pathname === "/profile";
+
   return (
     <header className={`${styles.header} pt-4 pb-4`}>
       <nav className={`${styles.content}`}>
         <div className={`${styles.left} pl-5 mr-2`}>
-          <button className={styles.item + " pl-5 pr-5 pt-4 pb-4"}>
-            <BurgerIcon type="primary" />
+          <NavLink
+            className={styles.item + " pl-5 pr-5 pt-4 pb-4"}
+            exact
+            to="/"
+            activeClassName={styles.active}
+          >
+            <BurgerIcon type="secondary" />
             <p className={"text text_type_main-default ml-2 mr-5"}>
               Конструктор
             </p>
-          </button>
-          <button className={styles.item + " pl-5 pr-5 pt-4 pb-4"}>
-            <ListIcon type="secondary" />
-            <p className={"text text_type_main-default ml-2 mr-5 text_color_inactive"}>
+          </NavLink>
+          <NavLink
+            className={styles.item + " pl-5 pr-5 pt-4 pb-4"}
+            exact
+            to="/list"
+            activeClassName={styles.active}
+          >
+            <ListIcon />
+            <p
+              className={
+                "text text_type_main-default ml-2 mr-5 text_color_inactive"
+              }
+            >
               Лента заказов
             </p>
-          </button>
+          </NavLink>
         </div>
         <div className={styles.center}>
           <Logo />
         </div>
-        <div className={styles.right}>
-          <button className={styles.item__profile + " pl-5 pr-5 pt-4 pb-4"}>
-            <ProfileIcon type="secondary" />
-            <p className={"text text_type_main-default ml-2 mr-5 text_color_inactive"}>
-              Личный кабинет
-            </p>
-          </button>
-        </div>
+        <NavLink
+          className={styles.right + " pl-5 pr-5 pt-4 pb-4"}
+          to="/profile"
+          exact
+          activeClassName={`${isActive && styles.active}`}
+        >
+          <ProfileIcon />
+          <p className={"text text_type_main-default ml-2 mr-5"}>
+            Личный кабинет
+          </p>
+        </NavLink>
       </nav>
     </header>
   );

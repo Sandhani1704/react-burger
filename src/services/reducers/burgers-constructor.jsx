@@ -2,9 +2,8 @@ import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   SORT_INGREDIENTS,
+  CLEAR_PREV_ORDER,
 } from "../actions/burgers-constructor.jsx";
-
-import { GET_ORDER_SUCCESS } from "../actions/order-details.jsx";
 
 export const initialState = {
   addedIngredients: [],
@@ -34,7 +33,7 @@ export const constructorReducer = (state = initialState, action) => {
         ),
       };
     }
-    case GET_ORDER_SUCCESS: {
+    case CLEAR_PREV_ORDER: {
       return {
         ...state,
         addedIngredients: []

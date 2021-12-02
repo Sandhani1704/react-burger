@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1208px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 120px;
+}
+
+.profile {
+  display: flex;
+}
+
+.cont-input {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 480px;
+  width: 100%;
+  margin-left: 60px;
+}
+
+.info {
+  display: flex;
+  max-width: 320px;
+  width: 100%;
+  width: 320px;
+}
+
+:global(.input_size_default) {
+  width: 480px;
+}

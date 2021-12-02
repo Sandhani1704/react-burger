@@ -1,9 +1,10 @@
-import React, {useMemo} from "react";
+import React, { useMemo } from "react";
 import styles from "./ingredient-item.module.css";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ingredientPropTypes } from "../../utils/types";
 import { useSelector } from 'react-redux';
@@ -25,13 +26,19 @@ const IngredientItem = ({ info, onIngredientClick }) => {
     return addedIngredients.filter(item => item._id === info._id).length
   }, [addedIngredients, info._id])
 
+  const location = useLocation();
+
   return (
-    <div
+    <Link
       className={styles.content}
       onClick={() => {
         onIngredientClick(info);
       }}
       ref={dragRef}
+      to={{
+        pathname: `/ingredients/${info._id}`,
+        state: {background: location}
+      }}
     >
       <img className="mb-1" src={info.image} alt={`ингредиент ${info.name}`} />
       <span className={`text text_type_digits-default mb-1 ${styles.price}`}>
@@ -41,7 +48,7 @@ const IngredientItem = ({ info, onIngredientClick }) => {
         {info.name}
       </span>
       {currentCount ? <Counter count={currentCount} size={'default'}/> : null}
-    </div>
+    </Link>
   );
 };
 

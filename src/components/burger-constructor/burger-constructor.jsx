@@ -5,7 +5,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorMainElement from '../burger-constructor-main-element/burger-constructor-main-element'
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_INGREDIENT, DELETE_INGREDIENT } from "../../services/actions/burgers-constructor";
+import { ADD_INGREDIENT, DELETE_INGREDIENT, CLEAR_PREV_ORDER } from "../../services/actions/burgers-constructor";
 import { HIDE_ORDER_INFO } from "../../services/actions/order-details";
 import { getOrderNumber } from '../../services/actions/order-details'; 
 import OrderDetails from "../order-details/order-details";
@@ -18,7 +18,7 @@ function BurgerConstructor() {
   const { addedIngredients } = useSelector(
     (state) => state.burgersConstructor
   );
-
+  
   const allItemsId = addedIngredients.map(item => item._id)
   
   const orderDetailsModalClick = () => {
@@ -29,7 +29,8 @@ function BurgerConstructor() {
 
   const onModalHideClick = () => {
     setOrderDetailsModal(false);
-    dispatch({ type: HIDE_ORDER_INFO })
+    dispatch({ type: HIDE_ORDER_INFO });
+    dispatch({ type: CLEAR_PREV_ORDER });
   };
   
   const deleteIngredient = (index) => {
