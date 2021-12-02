@@ -5,8 +5,6 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../utils/types";
 import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 
@@ -52,9 +50,9 @@ const IngredientItem = ({ info, onIngredientClick }) => {
   );
 };
 
-IngredientItem.propTypes = {
-  info: ingredientPropTypes.isRequired,
-  onIngredientClick: PropTypes.func.isRequired,
-};
+// IngredientItem.propTypes = {
+//   info: ingredientPropTypes.isRequired,
+//   onIngredientClick: PropTypes.func.isRequired,
+// };
 
 export default IngredientItem;

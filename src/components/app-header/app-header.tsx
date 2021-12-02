@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./app-header.module.css";
 import {
@@ -9,7 +9,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useLocation } from "react-router-dom";
 
-function AppHeader() {
+const AppHeader: FC = () => {
   const location = useLocation();
 
   const isActive = location.pathname === "/profile";
@@ -35,7 +35,7 @@ function AppHeader() {
             to="/list"
             activeClassName={styles.active}
           >
-            <ListIcon />
+            <ListIcon type="secondary"/>
             <p
               className={
                 "text text_type_main-default ml-2 mr-5 text_color_inactive"
@@ -54,7 +54,7 @@ function AppHeader() {
           exact
           activeClassName={`${isActive && styles.active}`}
         >
-          <ProfileIcon />
+          <ProfileIcon type="secondary" />
           <p className={"text text_type_main-default ml-2 mr-5"}>
             Личный кабинет
           </p>

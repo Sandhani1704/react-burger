@@ -1,16 +1,22 @@
+import { TIngredient } from '../../utils/types';
+
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   SORT_INGREDIENTS,
   CLEAR_PREV_ORDER,
-} from "../actions/burgers-constructor.jsx";
+  TConstructorActions,
+} from "../actions/burgers-constructor";
 
-export const initialState = {
+export type TConstructorState = {
+  addedIngredients: Array<TIngredient>;
+}
+
+export const initialState: TConstructorState = {
   addedIngredients: [],
-  currentTab: "buns",
 };
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action: TConstructorActions): TConstructorState => {
   switch (action.type) {
     case ADD_INGREDIENT: {
       return {

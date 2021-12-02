@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import AppHeader from "../app-header/app-header";
 import styles from "./app.module.css";
 import { Route, Switch, useLocation, useHistory } from "react-router-dom";
+import { Location } from 'history';
 import HomePage from "../../pages/home-page/home-page";
 import LoginPage from "../../pages/login-page/login-page";
 import RegistrationPage from "../../pages/registration-page/registration-page";
@@ -16,7 +17,11 @@ import { useDispatch } from "react-redux";
 import { getUser } from "../../services/actions/user-info";
 import { getItems } from "../../services/actions/burger-ingredients-data";
 
-function App () {
+type TLocationState = {
+  background: Location<unknown>;
+};
+
+const App: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,7 +29,7 @@ function App () {
     dispatch(getItems());
   }, [dispatch]);
 
-  const location = useLocation();
+  const location = useLocation<TLocationState>();
   const history = useHistory();
 
   const background =

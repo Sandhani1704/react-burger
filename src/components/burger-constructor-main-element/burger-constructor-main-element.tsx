@@ -1,14 +1,20 @@
-import React, { useRef } from "react";
+import React, { FC, useRef } from "react";
 import styles from "./burger-constructor-main-element.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from 'react-redux';
 import { SORT_INGREDIENTS } from '../../services/actions/burgers-constructor';
-import PropTypes from "prop-types";
-import { ingredientPropTypes } from '../../utils/types';
+//import PropTypes from "prop-types";
+//import { ingredientPropTypes } from '../../utils/types';
+import { TIngredient, RootState } from '../../utils/types';
+type TMainElementProps = {
+  item:  TIngredient;
+  index: number;
+  deleteIngredient: (index: number) => void;
+}
 
-function BurgerConstructorMainElement({ item, index, deleteIngredient }) {
+const BurgerConstructorMainElement: FC<TMainElementProps> = ({ item, index, deleteIngredient }) => {
 const dispatch = useDispatch();
 const ref = useRef(null);
 
@@ -27,7 +33,7 @@ const [ { isDragging }, drag] = useDrag({
     collect: monitor => ({
       isHovered: monitor.isOver()
     }),
-    hover(item, monitor) {
+    hover(item: {index: number}, monitor) {
       const dragIndex = item.index;
       const hoverIndex = index;
 
@@ -58,10 +64,10 @@ const [ { isDragging }, drag] = useDrag({
   );
 }
 
-BurgerConstructorMainElement.propTypes = {
-  item: ingredientPropTypes.isRequired, 
-  deleteIngredient: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired,
-};
+// BurgerConstructorMainElement.propTypes = {
+//   item: ingredientPropTypes.isRequired, 
+//   deleteIngredient: PropTypes.func.isRequired,
+//   index: PropTypes.number.isRequired,
+// };
 
 export default BurgerConstructorMainElement;

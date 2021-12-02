@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -11,17 +11,18 @@ import { getOrderNumber } from '../../services/actions/order-details';
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import { useDrop } from "react-dnd";
+import { TIngredient, RootState } from '../../utils/types';
 
-function BurgerConstructor() {
+const BurgerConstructor: FC = () => {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
   const dispatch = useDispatch();
   const { addedIngredients } = useSelector(
-    (state) => state.burgersConstructor
+    (state: RootState) => state.burgersConstructor
   );
   
-  const allItemsId = addedIngredients.map(item => item._id)
+  const allItemsId = addedIngredients.map((item: TIngredient) => item?._id)
   
-  const orderDetailsModalClick = () => {
+  const orderDetailsModalClick = (allItemsId: string[]) => {
     if (orderDetailsModal) return;
     setOrderDetailsModal(true);
     dispatch(getOrderNumber(allItemsId));
@@ -33,13 +34,13 @@ function BurgerConstructor() {
     dispatch({ type: CLEAR_PREV_ORDER });
   };
   
-  const deleteIngredient = (index) => {
+  const deleteIngredient = (index: number) => {
     dispatch({ type: DELETE_INGREDIENT, index});
   }
   
   const [ { isHover }, dropTarget] = useDrop({
     accept: 'ingredient',
-    drop(item) {
+    drop(item: {info: TIngredient}) {
       dispatch({ type: ADD_INGREDIENT, ingredient: item.info });
     },
     collect: (monitor) => ({
@@ -128,7 +129,7 @@ const totalSum = useMemo(() => {
           <CurrencyIcon type={"primary"} />
         </div>
 
-        { bun && <Button type="primary" size="normal" onClick={() => orderDetailsModalClick(allItemsId)}>
+        { bun && <Button type="primary" size="medium" onClick={() => orderDetailsModalClick(allItemsId)}>
           Оформить заказ
         </Button>
         }

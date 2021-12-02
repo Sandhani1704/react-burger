@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import IngredientItem from "../ingredient-item/ingredient-item";
 import styles from "./burger-ingredients.module.css";
 import Tabs from "../tabs/tabs";
@@ -11,16 +11,17 @@ import {
 import { Loader } from "../ui/loader/loader"; 
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+import { TIngredient, RootState } from '../../utils/types';
 
 function BurgerIngredients() {
   const [popupOpen, setPopupOpen] = React.useState(false);
 
   const dispatch = useDispatch();
   const { ingredients, itemsRequest, itemsFailed } = useSelector(
-    (state) => state.burgerIngredientsData
+    (state: RootState) => state.burgerIngredientsData
   );
 
-const onIngredientClick = (info) => {
+const onIngredientClick = (info: TIngredient) => {
     if (popupOpen) return;
     setPopupOpen(true);
     dispatch({ type: DISPLAY_INGREDIENT_INFO, info });
@@ -37,22 +38,35 @@ const onIngredientClick = (info) => {
     main: "",
   });
 
-  useEffect(() => {
-    const ingredientCont = document.getElementById("ingredientCont");
-    const listenScrollEvent = () => {
-      const tabs = document.getElementById("tabs");
-      const buns = document.getElementById("buns");
-      const sauces = document.getElementById("sauces");
-      const main = document.getElementById("main");
+  const contsRef = useRef<HTMLDivElement>(null);
+  const bunsRef = useRef<HTMLHeadingElement>(null);
+  const saucesRef = useRef<HTMLHeadingElement>(null);
+  const mainRef = useRef<HTMLHeadingElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
 
-      const isShouldChangeActiveTab = (block) => {
+  useEffect(() => {
+    const ingredientCont: HTMLElement | null = document.getElementById("ingredientCont");
+    const listenScrollEvent = () => {
+      const tabs: HTMLElement | null = document.getElementById("tabs");
+      // const buns: HTMLElement | null = document.getElementById("buns");
+      // const sauces: HTMLElement | null = document.getElementById("sauces");
+      // const main: HTMLElement | null = document.getElementById("main");
+
+      const buns = bunsRef.current
+      const sauces = saucesRef.current
+      const main = mainRef.current
+
+      const isShouldChangeActiveTab = (block: HTMLElement | null) => {
+        if (tabs === null || block === null) {
+          return;
+        }
         return (
           block.getBoundingClientRect().top - 150 <=
           tabs.getBoundingClientRect().bottom
         );
       };
 
-      if (isShouldChangeActiveTab(buns)) {
+      if (isShouldChangeActiveTab(bunsRef?.current)) {
         setActiveTab({
           sauces: "",
           buns: "buns",
@@ -60,7 +74,7 @@ const onIngredientClick = (info) => {
         });
       }
       if (isShouldChangeActiveTab(sauces)) {
-        setActiveTab({
+          setActiveTab({
           sauces: "sauces",
           buns: "",
           main: "",
@@ -77,10 +91,10 @@ const onIngredientClick = (info) => {
       
     };
 
-    ingredientCont.addEventListener("scroll", listenScrollEvent);
+    ingredientCont?.addEventListener("scroll", listenScrollEvent);
 
     return () =>
-      ingredientCont.removeEventListener("scroll", listenScrollEvent);
+      ingredientCont?.removeEventListener("scroll", listenScrollEvent);
   }, []);
 
   return (
@@ -88,16 +102,16 @@ const onIngredientClick = (info) => {
       <Tabs activeTab={activeTab} />
       
       
-      <div className={styles.container} id="ingredientCont">
+      <div className={styles.container} id="ingredientCont" ref={contsRef}>
       {itemsRequest ? <Loader size="large" /> :
           ( itemsFailed ? <p className="text text_type_main-medium">Произошла ошибка. Перезагрузите браузер.</p> : 
           <>
-          <section className={`${styles.content} mb-10`}  id="buns">
-          <h2 className="text text_type_main-medium mb-6">Булки</h2>
+          <section className={`${styles.content} mb-10`}  id="buns" >
+          <h2 className="text text_type_main-medium mb-6" ref={bunsRef} >Булки</h2>
           <div className={styles.list}>
             {ingredients
-              .filter((item) => item.type === "bun")
-              .map((item) => (
+              .filter((item: TIngredient) => item.type === "bun")
+              .map((item: TIngredient) => (
                 <IngredientItem
                   info={item}
                   key={item._id}
@@ -110,11 +124,11 @@ const onIngredientClick = (info) => {
           className={`${styles.content} mb-10`}
           id="sauces"
         >
-          <h2 className="text text_type_main-medium mb-6">Соусы</h2>
+          <h2 ref={saucesRef} className="text text_type_main-medium mb-6">Соусы</h2>
           <div className={styles.list}>
             {ingredients
-              .filter((item) => item.type === "sauce")
-              .map((item) => (
+              .filter((item: TIngredient) => item.type === "sauce")
+              .map((item: TIngredient) => (
                 <IngredientItem
                   info={item}
                   key={item._id}
@@ -124,13 +138,13 @@ const onIngredientClick = (info) => {
           </div>
         </section>
         <section className={`${styles.content} mb-10`} id="main">
-          <h2 className="text text_type_main-medium mb-6">
+          <h2 ref={mainRef} className="text text_type_main-medium mb-6">
             Основные ингредиенты
           </h2>
           <div className={styles.list}>
             {ingredients
-              .filter((item) => item.type === "main")
-              .map((item) => (
+              .filter((item: TIngredient) => item.type === "main")
+              .map((item: TIngredient) => (
                 <IngredientItem
                   info={item}
                   key={item._id}
