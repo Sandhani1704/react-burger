@@ -12,7 +12,7 @@ export function getIngredients() {
   });
 }
 
-export function getOrder(ingredientsId) {
+export function getOrder(ingredientsId: Array<string>) {
   const data = { ingredients: ingredientsId };
   return fetch(ORDER_URL, {
     method: "POST",

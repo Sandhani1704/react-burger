@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink, Redirect } from 'react-router-dom';
 import styles from './registration-page.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../services/actions/user-info';
 import { SET_REGISTER_REQUEST_ERROR } from "../../services/actions/user-info";
+import { RootState } from '../../utils/types';
 
 function RegistrationPage() {
-  const { userUnfo, registerError } = useSelector((store) => store.userInfo);
+  const { userUnfo, registerError } = useSelector((store: RootState) => store.userInfo);
   const dispatch = useDispatch();
   const [emailValue, setEmail] = useState('');
   const [nameValue, setName] = useState('');
   const [passwordValue, setPassword] = useState('');
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(registerUser(nameValue, emailValue, passwordValue))
   }
@@ -45,8 +46,6 @@ function RegistrationPage() {
         />
       <PasswordInput
         name='password'
-        type='password'
-        placeholder='Password'
         onChange={e => setPassword(e.target.value)}
         value={passwordValue}
       />

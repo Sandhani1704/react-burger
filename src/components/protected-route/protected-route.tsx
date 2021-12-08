@@ -1,8 +1,11 @@
+import React, { FC } from "react";
 import { Redirect, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { RootState } from '../../utils/types';
+import { RouteProps } from 'react-router';
 
-export function ProtectedRoute({ children, ...rest }) {
-  const { userUnfo } = useSelector((store) => store.userInfo);
+export const ProtectedRoute: FC<RouteProps> = ({ children, ...rest }) => {
+  const { userUnfo } = useSelector((store: RootState) => store.userInfo);
 
   return (
     <Route

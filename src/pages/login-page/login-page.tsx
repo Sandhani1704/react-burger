@@ -9,15 +9,16 @@ import styles from "./login-page.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_LOGIN_REQUEST_ERROR } from "../../services/actions/user-info";
 import { loginUser } from "../../services/actions/user-info";
+import { RootState } from '../../utils/types';
 
 function LoginPage() {
-  const { userUnfo, loginError } = useSelector((store) => store.userInfo);
-  const location = useLocation();
+  const { userUnfo, loginError } = useSelector((store: RootState) => store.userInfo);
+  const location = useLocation<{from: string}>();
   const dispatch = useDispatch();
   const [emailValue, setEmail] = useState("");
   const [passwordValue, setPassword] = useState("");
-
-  const handleLoginSubmit = (e) => {
+  
+  const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(loginUser(emailValue, passwordValue));
   };
@@ -37,10 +38,10 @@ function LoginPage() {
         name="email"
         onChange={(e) => setEmail(e.target.value)}
         value={emailValue}
-        className="mb-6"
+        // className="mb-6"
         size={"default"}
       />
-      <PasswordInput
+      <Input
         name="password"
         type="password"
         placeholder="Password"

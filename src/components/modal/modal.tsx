@@ -1,16 +1,20 @@
-import React from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
 
-function Modal({ title, onModalHideClick, children }) {
+type TModalProps = {
+  title:  string;
+  onModalHideClick: () => void;
+}
+
+const Modal: FC<TModalProps> = ({ title, onModalHideClick, children }) => {
   
   React.useEffect(() => {
-    function handleEscClose(evt) {
+    function handleEscClose(evt: globalThis.KeyboardEvent) {
       if (evt.key === "Escape") {
         onModalHideClick();
       }
@@ -23,7 +27,7 @@ function Modal({ title, onModalHideClick, children }) {
     };
   });
 
-  return ReactDOM.createPortal(
+  return modalRoot ? ReactDOM.createPortal(
     <div>
       <ModalOverlay onModalHideClick={onModalHideClick} />
       <div className={styles.popup}>
@@ -45,13 +49,13 @@ function Modal({ title, onModalHideClick, children }) {
       </div>
     </div>,
     modalRoot
-  );
+  ) : null;
 }
 
-Modal.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
-  onModalHideClick: PropTypes.func.isRequired,
-};
+// Modal.propTypes = {
+//   title: PropTypes.string.isRequired,
+//   children: PropTypes.element.isRequired,
+//   onModalHideClick: PropTypes.func.isRequired,
+// };
 
 export default Modal;

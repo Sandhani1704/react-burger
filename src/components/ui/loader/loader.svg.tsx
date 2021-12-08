@@ -1,8 +1,15 @@
-export const LoaderSvg = ({ color = '#3C39EC', size }) => {
+import React, { FC } from "react";
+
+type TLoaderSvgProps = {
+  color:  string;
+  siz: number;
+}
+
+export const LoaderSvg: FC<TLoaderSvgProps> = ({ color = '#3C39EC', siz }) => {
     return (
       <svg
-        width={size}
-        height={size}
+        width={siz}
+        height={siz}
         viewBox="0 0 38 38"
         xmlns="http://www.w3.org/2000/svg"
         stroke={color}

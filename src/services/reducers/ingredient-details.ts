@@ -1,13 +1,19 @@
 import {
   DISPLAY_INGREDIENT_INFO,
   HIDE_INGREDIENT_INFO,
-} from "../actions/ingredient-details.jsx";
+  TIngredientInfoActions
+} from "../actions/ingredient-details";
+import { TIngredient } from '../../utils/types';
 
-export const initialState = {
+export type TIngredientState = {
+  selectedIngredient: TIngredient | null;
+}
+
+export const initialState: TIngredientState = {
   selectedIngredient: null,
 };
 
-export const ingredientReducer = (state = initialState, action) => {
+export const ingredientReducer = (state = initialState, action: TIngredientInfoActions): TIngredientState => {
   switch (action.type) {
     case DISPLAY_INGREDIENT_INFO: {
       return { ...state, selectedIngredient: action.info };

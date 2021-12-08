@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import styles from "./ingredient-item.module.css";
 import {
   CurrencyIcon,
@@ -7,10 +7,17 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
+import { TIngredient, RootState } from '../../utils/types';
 
-const IngredientItem = ({ info, onIngredientClick }) => {
+type TIngredientItemProps = {
+  info:  TIngredient;
+  onIngredientClick: (info: TIngredient) => void;
+}
+
+
+const IngredientItem: FC<TIngredientItemProps> = ({ info, onIngredientClick }) => {
   const addedIngredients = useSelector(
-    (state) => state.burgersConstructor.addedIngredients
+    (state: RootState) => state.burgersConstructor.addedIngredients
   );
   const [, dragRef] = useDrag(() => ({
     type: 'ingredient',

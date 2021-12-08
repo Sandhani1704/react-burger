@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { SORT_INGREDIENTS } from '../../services/actions/burgers-constructor';
 //import PropTypes from "prop-types";
 //import { ingredientPropTypes } from '../../utils/types';
-import { TIngredient, RootState } from '../../utils/types';
+import { TIngredient } from '../../utils/types';
 type TMainElementProps = {
   item:  TIngredient;
   index: number;

@@ -2,17 +2,23 @@ import {
     GET_ITEMS_FAILED,
     GET_ITEMS_REQUEST,
     GET_ITEMS_SUCCESS,
-    
-  } from "../actions/burger-ingredients-data.jsx";
+    TBurgerIngredientsDataActions
+  } from "../actions/burger-ingredients-data";
+  import { TIngredient } from '../../utils/types';
+
+type TIngredientsState = {
+    ingredients: Array<TIngredient>;
+    itemsRequest: boolean;
+    itemsFailed: boolean;
+}
   
-  export const initialState = {
+  export const initialState: TIngredientsState = {
     ingredients: [],
     itemsRequest: false,
     itemsFailed: false,
-    
   };
   
-  export const burgerIngredientsDataReducer = (state = initialState, action) => {
+  export const burgerIngredientsDataReducer = (state = initialState, action: TBurgerIngredientsDataActions): TIngredientsState => {
     switch (action.type) {
       case GET_ITEMS_REQUEST: {
         return {

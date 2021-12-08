@@ -1,19 +1,22 @@
-import { TIngredient } from '../../utils/types';
+import { TIngredient, TTabNames } from '../../utils/types';
 
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   SORT_INGREDIENTS,
   CLEAR_PREV_ORDER,
+  CHANGE_ACTIVE_TAB,
   TConstructorActions,
 } from "../actions/burgers-constructor";
 
 export type TConstructorState = {
   addedIngredients: Array<TIngredient>;
+  currentTab: TTabNames;
 }
 
 export const initialState: TConstructorState = {
   addedIngredients: [],
+  currentTab: 'buns'
 };
 
 export const constructorReducer = (state = initialState, action: TConstructorActions): TConstructorState => {
@@ -56,6 +59,13 @@ export const constructorReducer = (state = initialState, action: TConstructorAct
       return {
         ...state,
         addedIngredients: newArr
+      }
+    }
+
+    case CHANGE_ACTIVE_TAB: {
+      return {
+        ...state,
+        currentTab: action.activeTab
       }
     }
 

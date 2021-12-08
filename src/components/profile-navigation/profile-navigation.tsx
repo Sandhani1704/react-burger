@@ -1,21 +1,22 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import styles from "./profile-navigation.module.css";
 import { NavLink, useHistory } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../services/actions/user-info";
+import { RootState } from '../../utils/types';
 
 function ProfileNavigation() {
   const dispatch = useDispatch();
   
   const { logOutError } = useSelector(
-    (state) => state.userInfo
+    (state: RootState) => state.userInfo
   );
   
   const history = useHistory();
 
-  const handleLogOut = (e) => {
-    e.preventDefault();
+  const handleLogOut = (event: FormEvent) => {
+    event.preventDefault();
     dispatch(logout(history));
     history.replace({ pathname: "/login" });
   };

@@ -11,7 +11,7 @@ function ForgotPassword() {
   const [emailValue, setEmail] = useState('');
   const dispatch = useDispatch();
 
-  const handlePasswordSubmit = (e) => {
+  const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(passwordReset(emailValue, history))
   }
@@ -25,7 +25,7 @@ function ForgotPassword() {
         name='email'
         onChange={e => setEmail(e.target.value)}
         value={emailValue}
-        className='mb-6'
+        // className='mb-6'
         size={'default'}
       />
     <Button type='primary' size='medium'>Восстановить</Button>

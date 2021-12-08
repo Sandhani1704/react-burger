@@ -1,26 +1,27 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./order-details.module.css";
 import DoneIcon from "../../images/graphics.png";
 import { useSelector } from 'react-redux';
 import { Loader } from "../ui/loader/loader";
 import { Redirect } from 'react-router-dom';
+import { RootState } from '../../utils/types';
 
-function OrderDetails() {
+const OrderDetails: FC = () => {
   
-const { numberOrder, orderRequest, orderRequestFaild } = useSelector((state) => state.order)
-const { userUnfo } = useSelector((store) => store.userInfo);
+const { numberOrder, orderRequest, orderRequestFaild } = useSelector((state: RootState) => state.order)
+const { userUnfo } = useSelector((store: RootState) => store.userInfo);
 
 if (!userUnfo.email)
     return <Redirect to='/login'/>
     
   return (
     <div className={`mb-15 ${styles.container}`}>
-      { orderRequest ? <Loader size="large" /> :
+      { orderRequest ? <Loader size={40} inverse /> :
 
       ( orderRequestFaild ? (
           <p className="text text_type_main-medium">Произошла ошибка. Попробуйте ещё раз.</p>
         ) : (<>
-      <span className="text text_type_digits-large mb-8">{numberOrder.number}</span> 
+      <span className="text text_type_digits-large mb-8">{numberOrder?.number}</span> 
     
       <span className="text text_type_main-medium mb-15">
         Идентификатор заказа

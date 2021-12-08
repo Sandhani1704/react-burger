@@ -6,9 +6,19 @@ import {
   SET_LOGIN_REQUEST_ERROR,
   SET_REGISTER_REQUEST_ERROR,
   SET_LOGOUT_REQUEST_ERROR,
-} from "../actions/user-info.jsx";
+  TUserInfoAction
+} from "../actions/user-info";
 
-export const initialState = {
+export type TUserInfoState = {
+  userUnfo: { name: string, email: string };
+  userRequest: boolean;
+  registerError: string;
+  loginError: string;
+  logOutError: string;
+  isResponsedEmail: boolean;
+}
+
+export const initialState: TUserInfoState = {
   userUnfo: { name: "", email: "" },
   userRequest: false,
   registerError: '',
@@ -17,7 +27,7 @@ export const initialState = {
   isResponsedEmail: false,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: TUserInfoAction): TUserInfoState => {
   switch (action.type) {
     case GET_USER_REQUEST: {
       return {
@@ -53,7 +63,7 @@ export const userReducer = (state = initialState, action) => {
     case REMOVE_USER_INFO: {
       return {
         ...state,
-        userRequestFaild: false,
+        userRequest: false,
         userUnfo: { name: "", email: "" },
       };
     }

@@ -1,9 +1,15 @@
-import { TIngredient } from '../../utils/types';
+import { TIngredient, TTabNames } from '../../utils/types';
 
 export const ADD_INGREDIENT = 'ADD_INGREDIENT'; 
 export const DELETE_INGREDIENT = 'DELETE_ITEM';
 export const SORT_INGREDIENTS = 'SORT_INGREDIENTS';
-export const CLEAR_PREV_ORDER = 'CLEAR_PREV_ORDER'; 
+export const CLEAR_PREV_ORDER = 'CLEAR_PREV_ORDER';
+export const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
+
+type TChangeActiveTab = {
+  type: typeof CHANGE_ACTIVE_TAB;
+  activeTab: TTabNames;
+}
 
   type TClearPrevOrder = {
     type: typeof CLEAR_PREV_ORDER;
@@ -29,4 +35,5 @@ export const CLEAR_PREV_ORDER = 'CLEAR_PREV_ORDER';
     TClearPrevOrder |
     TAddIngredientInOrderAction |
     TRemoveIgredientAction |
-    TSortIngredientsAction
+    TSortIngredientsAction | 
+    TChangeActiveTab

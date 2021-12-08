@@ -7,6 +7,7 @@ import {
   DISPLAY_INGREDIENT_INFO,
   HIDE_INGREDIENT_INFO,
 } from "../../services/actions/ingredient-details";
+import { CHANGE_ACTIVE_TAB } from "../../services/actions/burgers-constructor";
 
 import { Loader } from "../ui/loader/loader"; 
 import IngredientDetails from "../ingredient-details/ingredient-details";
@@ -15,10 +16,14 @@ import { TIngredient, RootState } from '../../utils/types';
 
 function BurgerIngredients() {
   const [popupOpen, setPopupOpen] = React.useState(false);
-
+  
   const dispatch = useDispatch();
   const { ingredients, itemsRequest, itemsFailed } = useSelector(
     (state: RootState) => state.burgerIngredientsData
+  );
+
+  const { currentTab } = useSelector(
+    (state: RootState) => state.burgersConstructor
   );
 
 const onIngredientClick = (info: TIngredient) => {
@@ -32,11 +37,14 @@ const onIngredientClick = (info: TIngredient) => {
     dispatch({ type: HIDE_INGREDIENT_INFO });
   };
 
-  const [activeTab, setActiveTab] = useState({
-    sauces: "",
-    buns: "buns",
-    main: "",
-  });
+  // const [activeTab, setActiveTab] = useState({
+  //   sauces: "",
+  //   buns: "buns",
+  //   main: "",
+  // });
+
+  //const [currentTab, setCurrentTab] = useState("buns");
+  const [activeTab, setActiveTab] = useState(false);
 
   const contsRef = useRef<HTMLDivElement>(null);
   const bunsRef = useRef<HTMLHeadingElement>(null);
@@ -48,13 +56,15 @@ const onIngredientClick = (info: TIngredient) => {
     const ingredientCont: HTMLElement | null = document.getElementById("ingredientCont");
     const listenScrollEvent = () => {
       const tabs: HTMLElement | null = document.getElementById("tabs");
-      // const buns: HTMLElement | null = document.getElementById("buns");
-      // const sauces: HTMLElement | null = document.getElementById("sauces");
-      // const main: HTMLElement | null = document.getElementById("main");
+      const buns: HTMLElement | null = document.getElementById("buns");
+      const sauces: HTMLElement | null = document.getElementById("sauces");
+      const main: HTMLElement | null = document.getElementById("main");
 
-      const buns = bunsRef.current
-      const sauces = saucesRef.current
-      const main = mainRef.current
+      const bunsTab = 'buns'
+      const saucesTab = 'sauces'
+      const mainTab = 'main'
+
+
 
       const isShouldChangeActiveTab = (block: HTMLElement | null) => {
         if (tabs === null || block === null) {
@@ -66,27 +76,34 @@ const onIngredientClick = (info: TIngredient) => {
         );
       };
 
-      if (isShouldChangeActiveTab(bunsRef?.current)) {
-        setActiveTab({
-          sauces: "",
-          buns: "buns",
-          main: "",
-        });
+      if (isShouldChangeActiveTab(buns)) {
+        // setCurrentTab("buns");
+        // setActiveTab(true)
+        const activeTab = "buns"
+        dispatch({ type: CHANGE_ACTIVE_TAB, activeTab })
       }
       if (isShouldChangeActiveTab(sauces)) {
-          setActiveTab({
-          sauces: "sauces",
-          buns: "",
-          main: "",
-        });
+        //   setActiveTab({
+        //   sauces: "sauces",
+        //   buns: "",
+        //   main: "",
+        // });
+        //setCurrentTab("sauces");
+        const activeTab = "sauces"
+        setActiveTab(true)
+        dispatch({ type: CHANGE_ACTIVE_TAB, activeTab })
       }
       if (isShouldChangeActiveTab(main)) {
-        setActiveTab({
-          sauces: '',
-          buns: '',
-          main: "main",
+        // setActiveTab({
+        //   sauces: '',
+        //   buns: '',
+        //   main: "main",
           
-        });
+        // });
+        //setCurrentTab("main");
+        const activeTab = "main"
+        dispatch({ type: CHANGE_ACTIVE_TAB, activeTab })
+        setActiveTab(true)
       }
       
     };
@@ -99,11 +116,11 @@ const onIngredientClick = (info: TIngredient) => {
 
   return (
     <div className={`${styles.types} `}>
-      <Tabs activeTab={activeTab} />
+      <Tabs />
       
       
       <div className={styles.container} id="ingredientCont" ref={contsRef}>
-      {itemsRequest ? <Loader size="large" /> :
+      {itemsRequest ? <Loader size={40} inverse /> :
           ( itemsFailed ? <p className="text text_type_main-medium">Произошла ошибка. Перезагрузите браузер.</p> : 
           <>
           <section className={`${styles.content} mb-10`}  id="buns" >

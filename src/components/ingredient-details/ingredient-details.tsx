@@ -2,16 +2,17 @@ import React from "react";
 import styles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
+import { TIngredient, RootState } from '../../utils/types';
 
 function IngredientDetails() {
-  const { selectedIngredient } = useSelector((state) => state.ingredientInfo);
+  const { selectedIngredient } = useSelector((state: RootState) => state.ingredientInfo);
 
-  const { ingredients } = useSelector((state) => state.burgerIngredientsData);
+  const { ingredients } = useSelector((state: RootState) => state.burgerIngredientsData);
   
-  const { id } = useParams();
+  const { id } = useParams<{id: string}>();
   const info = selectedIngredient
     ? selectedIngredient
-    : ingredients.find((item) => item._id === id);
+    : ingredients.find((item: TIngredient) => item._id === id);
 
   if (!ingredients.length) return null;
 
@@ -60,7 +61,6 @@ function IngredientDetails() {
         </div>
       </div>
     </div>
-    // </Link>
   );
 }
 

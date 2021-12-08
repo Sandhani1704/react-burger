@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import styles from "./profile-page.module.css";
 import ProfileNavigation from "../../components/profile-navigation/profile-navigation";
 import {
@@ -9,9 +9,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   updateUserInfo,
   } from "../../services/actions/user-info";
+import { RootState } from '../../utils/types';
 
 function ProfilePage() {
-  const { userUnfo } = useSelector((store) => store.userInfo);
+  const { userUnfo } = useSelector((store: RootState) => store.userInfo);
   const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     name: "",
@@ -29,7 +30,7 @@ function ProfilePage() {
     setIsChanged({ name: false, email: false, password: false });
   }, [userUnfo]);
 
-  const handleUpdateUserSubmit = (e) => {
+  const handleUpdateUserSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(updateUserInfo(userData.name, userData.email, userData.password));
   };
@@ -49,31 +50,30 @@ function ProfilePage() {
     setIsChanged({ ...isChanged, password: false });
   };
 
-  const nameChangeHandler = (e) => {
+  const nameChangeHandler = (e: FormEvent<HTMLInputElement>) => {
     setUserData({ ...userData, name: e.currentTarget.value });
     e.currentTarget.value !== userUnfo.name
       ? setIsChanged({ ...isChanged, name: true })
       : setIsChanged({ ...isChanged, name: false });
   };
 
-  const emailChangeHandler = (e) => {
+  const emailChangeHandler = (e: FormEvent<HTMLInputElement>) => {
     setUserData({ ...userData, email: e.currentTarget.value });
     e.currentTarget.value !== userUnfo.email
       ? setIsChanged({ ...isChanged, email: true })
       : setIsChanged({ ...isChanged, email: false });
   };
 
-  const passwordChangeHandler = (e) => {
+  const passwordChangeHandler = (e: FormEvent<HTMLInputElement>) => {
     setUserData({ ...userData, password: e.currentTarget.value });
     e.currentTarget.value !== ""
       ? setIsChanged({ ...isChanged, password: true })
       : setIsChanged({ ...isChanged, password: false });
   };
 
-  const resetButtonHandler = () => {
-    nameResetHandler();
-    emailResetHandler();
-    passwordResetHandler();
+  const resetButtonHandler = (e: React.FormEvent) => {
+    e.preventDefault();
+    setUserData({ name: userUnfo.name, email: userUnfo.email, password: "" });
   };
 
   const isSomeChanges = Object.values(isChanged).some(Boolean);

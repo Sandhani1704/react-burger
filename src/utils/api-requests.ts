@@ -9,13 +9,13 @@ const REFRESH_TOKEN_ADDRESS = `${BASE_URL}/auth/token`;
 const PASSWORD_RESET_ADDRESS = `${BASE_URL}/password-reset`;
 const SET_NEW_PASSWORD = `${BASE_URL}/password-reset/reset`;
 
-const checkResponse = (res) => {
+const checkResponse = (res: Response) => {
   return res.ok
     ? res.json() 
-    : res.json().then((err) => Promise.reject(err)); 
+    : res.json().then((err: any) => Promise.reject(err)); 
 };
 
-export function registration(name, email, password) {
+export function registration(name: string, email: string, password: string) {
   return fetch(REGISTRATION_ADDRESS, {
     method: "POST",
     headers: {
@@ -26,7 +26,7 @@ export function registration(name, email, password) {
   .then(res => checkResponse(res))
 }
 
-export function login(email, password) {
+export function login(email: string, password: string) {
   return fetch(LOGIN_ADDRESS, {
     method: "POST",
     headers: {
@@ -35,6 +35,8 @@ export function login(email, password) {
     body: JSON.stringify({ email, password }),
   })
   .then(res => checkResponse(res))
+    //checkResponse(res)
+  
 }
 
 export function getUserInfo() {
@@ -74,7 +76,7 @@ export const refreshToken = async () => {
   return checkResponse(res)
 }
 
-export function updateUser(name, email, password) {
+export function updateUser(name: string, email: string, password: string) {
   return fetch(GET_USER_ADDRESS, {
     method: "PATCH",
     headers: {
@@ -86,7 +88,7 @@ export function updateUser(name, email, password) {
     .then(res => checkResponse(res))
 }
 
-export function forgotPassword(email) {
+export function forgotPassword(email: string) {
   return fetch(PASSWORD_RESET_ADDRESS, {
     method: "POST",
     headers: {
@@ -97,7 +99,7 @@ export function forgotPassword(email) {
   .then(res => checkResponse(res))
 }
 
-export function setNewPassword(password, token) {
+export function setNewPassword(password: string, token: string) {
   return fetch(SET_NEW_PASSWORD, {
       method: 'POST',
       headers: {
