@@ -38,13 +38,10 @@ function LoginPage() {
         name="email"
         onChange={(e) => setEmail(e.target.value)}
         value={emailValue}
-        // className="mb-6"
         size={"default"}
       />
-      <Input
+      <PasswordInput
         name="password"
-        type="password"
-        placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
         value={passwordValue}
       />

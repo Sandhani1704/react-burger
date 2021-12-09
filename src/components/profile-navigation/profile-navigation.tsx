@@ -1,7 +1,6 @@
 import React, { FormEvent } from "react";
 import styles from "./profile-navigation.module.css";
 import { NavLink, useHistory } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../services/actions/user-info";
 import { RootState } from '../../utils/types';

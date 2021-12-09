@@ -98,7 +98,7 @@ export const logout = (history: string[] | History<unknown>) => (dispatch: AppDi
 export const getUser: AppThunk = () => (dispatch: AppDispatch) => {
   getUserInfo()
     .then((res) => {
-      console.log(res)
+      //console.log(res)
       if (res.success === true) {
         dispatch({
           type: SET_USER_INFO,
@@ -120,7 +120,7 @@ export const getUser: AppThunk = () => (dispatch: AppDispatch) => {
 export const updateUserInfo = (name: string, email: string, password: string) => (dispatch: AppDispatch) => {
   updateUser(name, email, password)
     .then((res) => {
-      console.log(res)
+      //console.log(res)
     if (res.success === true) {
         dispatch({
           type: SET_USER_INFO,
@@ -143,7 +143,7 @@ export const updateUserInfo = (name: string, email: string, password: string) =>
 export const updateToken: AppThunk = (func: typeof updateUser | typeof getUserInfo, ...args: [string, string, string]) => (dispatch: AppDispatch) => {
   refreshToken()
     .then((data) => {
-      console.log(data)
+      //console.log(data)
       setCookie("accessToken", getToken(data.accessToken), { expires: 'Fri, 31 Dec 9999 23:59:59 GMT' });
       localStorage.setItem("refreshToken", data.refreshToken);
       dispatch(func(...args) as any);
@@ -155,7 +155,7 @@ export const passwordReset = (email: string, history: string[] | History<unknown
   forgotPassword(email)
     .then((res) => {
       if (res.success === true) {
-        console.log(res);
+        //console.log(res);
 
         dispatch({
           type: RESPONSED_EMAIL,
@@ -191,7 +191,6 @@ export const setNewPasswordValue = (password: string, token: string, history: st
 
 type TGetUserRequestAction = {
   type: typeof GET_USER_REQUEST;
-  //userRequest: boolean;
 }
 
 type TSetUserInfoAction = {
@@ -205,7 +204,6 @@ type TRemoveUserInfoAction = {
 
 type TResponsedEmailAction = {
   type: typeof RESPONSED_EMAIL;
-  //isResponsedEmail: boolean;
 }
 
 type TSetLoginRequestErrorAction = {

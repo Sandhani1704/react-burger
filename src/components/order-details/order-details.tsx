@@ -16,7 +16,7 @@ if (!userUnfo.email)
     
   return (
     <div className={`mb-15 ${styles.container}`}>
-      { orderRequest ? <Loader size={40} inverse /> :
+      { orderRequest ? <Loader /> :
 
       ( orderRequestFaild ? (
           <p className="text text_type_main-medium">Произошла ошибка. Попробуйте ещё раз.</p>

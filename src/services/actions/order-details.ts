@@ -13,12 +13,10 @@ type TGetOrderSuccess = {
 
 type TGetOrderRequest = {
   type: typeof GET_ORDER_REQUEST;
-  //orderRequest: boolean;
 }
 
 type TGetOrderFailed = {
   type: typeof GET_ORDER_FAILED;
-  //orderRequest: boolean;
 }
 
 type THideOrderInfo = {
@@ -34,7 +32,7 @@ export const getOrderNumber: AppThunk = (ingredients: string[]) => (dispatch: Ap
     getOrder(ingredients)
       .then(res => dispatch({ type: GET_ORDER_SUCCESS, order: res.order }))
       .catch(err => {
-      console.log(err)
+      // console.log(err)
         if (err.message === "jwt expired") {
           dispatch(updateToken(getOrderNumber, ingredients) as any);
           return;

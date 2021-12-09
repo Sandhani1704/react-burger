@@ -1,11 +1,10 @@
 import React, {FC} from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal-overlay.module.css";
-// import PropTypes from "prop-types";
+
 type TModalOverlayProps = {
     onModalHideClick: () => void;
 }
-
 
 const ModalOverlay: FC<TModalOverlayProps> = ({ onModalHideClick }) => {
   
@@ -14,9 +13,5 @@ const ModalOverlay: FC<TModalOverlayProps> = ({ onModalHideClick }) => {
     document.body
   );
 }
-
-// ModalOverlay.propTypes = {
-//   onModalHideClick: PropTypes.func.isRequired,
-// };
 
 export default ModalOverlay;

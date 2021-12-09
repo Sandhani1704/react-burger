@@ -57,9 +57,4 @@ const IngredientItem: FC<TIngredientItemProps> = ({ info, onIngredientClick }) =
   );
 };
 
-// IngredientItem.propTypes = {
-//   info: ingredientPropTypes.isRequired,
-//   onIngredientClick: PropTypes.func.isRequired,
-// };
-
 export default IngredientItem;

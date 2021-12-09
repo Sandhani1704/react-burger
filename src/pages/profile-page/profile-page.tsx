@@ -4,7 +4,7 @@ import ProfileNavigation from "../../components/profile-navigation/profile-navig
 import {
   Input,
   Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+  } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateUserInfo,
@@ -105,7 +105,7 @@ function ProfilePage() {
           <Input
             name="password"
             type="password"
-            placeholder="Password"
+            placeholder="Пароль"
             value={userData.password}
             onChange={passwordChangeHandler}
             onIconClick={passwordResetHandler}

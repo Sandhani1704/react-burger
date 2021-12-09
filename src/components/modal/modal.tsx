@@ -52,10 +52,4 @@ const Modal: FC<TModalProps> = ({ title, onModalHideClick, children }) => {
   ) : null;
 }
 
-// Modal.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   children: PropTypes.element.isRequired,
-//   onModalHideClick: PropTypes.func.isRequired,
-// };
-
 export default Modal;

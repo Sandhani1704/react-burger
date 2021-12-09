@@ -5,8 +5,6 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from 'react-redux';
 import { SORT_INGREDIENTS } from '../../services/actions/burgers-constructor';
-//import PropTypes from "prop-types";
-//import { ingredientPropTypes } from '../../utils/types';
 import { TIngredient } from '../../utils/types';
 type TMainElementProps = {
   item:  TIngredient;
@@ -63,11 +61,5 @@ const [ { isDragging }, drag] = useDrag({
     </div>
   );
 }
-
-// BurgerConstructorMainElement.propTypes = {
-//   item: ingredientPropTypes.isRequired, 
-//   deleteIngredient: PropTypes.func.isRequired,
-//   index: PropTypes.number.isRequired,
-// };
 
 export default BurgerConstructorMainElement;

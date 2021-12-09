@@ -35,7 +35,6 @@ export function login(email: string, password: string) {
     body: JSON.stringify({ email, password }),
   })
   .then(res => checkResponse(res))
-    //checkResponse(res)
   
 }
 

@@ -36,22 +36,7 @@ const onIngredientClick = (info: TIngredient) => {
     setPopupOpen(false);
     dispatch({ type: HIDE_INGREDIENT_INFO });
   };
-
-  // const [activeTab, setActiveTab] = useState({
-  //   sauces: "",
-  //   buns: "buns",
-  //   main: "",
-  // });
-
-  //const [currentTab, setCurrentTab] = useState("buns");
-  const [activeTab, setActiveTab] = useState(false);
-
-  const contsRef = useRef<HTMLDivElement>(null);
-  const bunsRef = useRef<HTMLHeadingElement>(null);
-  const saucesRef = useRef<HTMLHeadingElement>(null);
-  const mainRef = useRef<HTMLHeadingElement>(null);
-  const tabsRef = useRef<HTMLDivElement>(null);
-
+  
   useEffect(() => {
     const ingredientCont: HTMLElement | null = document.getElementById("ingredientCont");
     const listenScrollEvent = () => {
@@ -59,12 +44,6 @@ const onIngredientClick = (info: TIngredient) => {
       const buns: HTMLElement | null = document.getElementById("buns");
       const sauces: HTMLElement | null = document.getElementById("sauces");
       const main: HTMLElement | null = document.getElementById("main");
-
-      const bunsTab = 'buns'
-      const saucesTab = 'sauces'
-      const mainTab = 'main'
-
-
 
       const isShouldChangeActiveTab = (block: HTMLElement | null) => {
         if (tabs === null || block === null) {
@@ -77,33 +56,16 @@ const onIngredientClick = (info: TIngredient) => {
       };
 
       if (isShouldChangeActiveTab(buns)) {
-        // setCurrentTab("buns");
-        // setActiveTab(true)
         const activeTab = "buns"
         dispatch({ type: CHANGE_ACTIVE_TAB, activeTab })
       }
       if (isShouldChangeActiveTab(sauces)) {
-        //   setActiveTab({
-        //   sauces: "sauces",
-        //   buns: "",
-        //   main: "",
-        // });
-        //setCurrentTab("sauces");
         const activeTab = "sauces"
-        setActiveTab(true)
         dispatch({ type: CHANGE_ACTIVE_TAB, activeTab })
       }
       if (isShouldChangeActiveTab(main)) {
-        // setActiveTab({
-        //   sauces: '',
-        //   buns: '',
-        //   main: "main",
-          
-        // });
-        //setCurrentTab("main");
         const activeTab = "main"
         dispatch({ type: CHANGE_ACTIVE_TAB, activeTab })
-        setActiveTab(true)
       }
       
     };
@@ -117,14 +79,13 @@ const onIngredientClick = (info: TIngredient) => {
   return (
     <div className={`${styles.types} `}>
       <Tabs />
-      
-      
-      <div className={styles.container} id="ingredientCont" ref={contsRef}>
-      {itemsRequest ? <Loader size={40} inverse /> :
+          
+      <div className={styles.container} id="ingredientCont" >
+      {itemsRequest ? <Loader /> :
           ( itemsFailed ? <p className="text text_type_main-medium">Произошла ошибка. Перезагрузите браузер.</p> : 
           <>
           <section className={`${styles.content} mb-10`}  id="buns" >
-          <h2 className="text text_type_main-medium mb-6" ref={bunsRef} >Булки</h2>
+          <h2 className="text text_type_main-medium mb-6"  >Булки</h2>
           <div className={styles.list}>
             {ingredients
               .filter((item: TIngredient) => item.type === "bun")
@@ -141,7 +102,7 @@ const onIngredientClick = (info: TIngredient) => {
           className={`${styles.content} mb-10`}
           id="sauces"
         >
-          <h2 ref={saucesRef} className="text text_type_main-medium mb-6">Соусы</h2>
+          <h2 className="text text_type_main-medium mb-6">Соусы</h2>
           <div className={styles.list}>
             {ingredients
               .filter((item: TIngredient) => item.type === "sauce")
@@ -155,7 +116,7 @@ const onIngredientClick = (info: TIngredient) => {
           </div>
         </section>
         <section className={`${styles.content} mb-10`} id="main">
-          <h2 ref={mainRef} className="text text_type_main-medium mb-6">
+          <h2 className="text text_type_main-medium mb-6">
             Основные ингредиенты
           </h2>
           <div className={styles.list}>
