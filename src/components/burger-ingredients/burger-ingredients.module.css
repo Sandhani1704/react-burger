@@ -15,7 +15,6 @@
 }
 
 .container {
-  align-items: center;
   max-height: 650px;
   overflow: auto;
 }
