@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-
 const modalRoot = document.getElementById("react-modals");
 
 type TModalProps = {
@@ -11,8 +10,10 @@ type TModalProps = {
   onModalHideClick: () => void;
 }
 
-const Modal: FC<TModalProps> = ({ title, onModalHideClick, children }) => {
-  
+
+
+const Modal: FC<TModalProps> = ({ title, children, onModalHideClick }) => {
+   
   React.useEffect(() => {
     function handleEscClose(evt: globalThis.KeyboardEvent) {
       if (evt.key === "Escape") {

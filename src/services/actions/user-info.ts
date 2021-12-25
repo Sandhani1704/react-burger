@@ -11,11 +11,6 @@ import {
 import { TUserInfoResponse, AppDispatch, AppThunk } from '../../utils/types'
 import { setCookie, getToken } from "../../utils/cookies";
 import { History } from "history";
-import { Dispatch } from "redux";
-import { getOrderNumber } from  './order-details';
-import { getOrder } from '../../utils/api'
-import { type } from "os";
-
 export const GET_USER_REQUEST = "GET_USER_REQUEST";
 export const SET_USER_INFO = "SET_USER_INFO";
 export const REMOVE_USER_INFO = "REMOVE_USER_INFO";
@@ -30,7 +25,6 @@ export interface IApiResponse {
 
 const setAuth = (res: TUserInfoResponse, dispatch: AppDispatch) => {
   setCookie("accessToken", getToken(res.accessToken), { expires: 'Fri, 31 Dec 9999 23:59:59 GMT' } );
-  //setCookie("accessToken", getToken(res.accessToken));
   localStorage.setItem("refreshToken", getToken(res.refreshToken));
   dispatch({ type: SET_USER_INFO, user: res.user });
 };
@@ -111,7 +105,7 @@ export const getUser: AppThunk = () => (dispatch: AppDispatch) => {
     })
     .catch((err) => {
       console.log(err);
-      if (err.message === "jwt expired") {
+      if (err.message === "jwt expired" || err.message === "Token is invalid") {
         dispatch(updateToken(getUser) as any);
       }
     });

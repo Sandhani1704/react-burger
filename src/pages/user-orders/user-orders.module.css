@@ -11,7 +11,9 @@
   max-width: 1208px;
   width: 100%;
   margin: 0 auto;
-  margin-top: 120px;
+  margin-top: 44px;
+  justify-content: space-between;
+  /* justify-content: center; */
 }
 
 .content {
@@ -32,4 +34,41 @@
   max-width: 320px;
   width: 100%;
   width: 320px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-height: 868px;
+  overflow: auto;
+  justify-content: center;
+}
+
+.list::-webkit-scrollbar-thumb {
+  height: 696px;
+  background: #8585ad;
+}
+
+.list::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: #8585ad;
+}
+
+.link {
+  flex-basis: 214px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px;
+  background-color: #1c1c21;
+  padding: 0 20px 0 20px;
+  margin-right: 8px;
+  text-decoration: none;
+  color: #F2F2F3;
+  max-width: 856px;
+}
+
+.link:hover {
+  cursor: pointer;
 }

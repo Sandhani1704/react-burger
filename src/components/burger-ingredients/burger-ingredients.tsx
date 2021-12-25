@@ -1,20 +1,23 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import IngredientItem from "../ingredient-item/ingredient-item";
 import styles from "./burger-ingredients.module.css";
-import Tabs from "../tabs/tabs";
 import { useDispatch, useSelector } from "react-redux";
 import {
   DISPLAY_INGREDIENT_INFO,
   HIDE_INGREDIENT_INFO,
 } from "../../services/actions/ingredient-details";
 import { CHANGE_ACTIVE_TAB } from "../../services/actions/burgers-constructor";
-
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Loader } from "../ui/loader/loader"; 
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { TIngredient, RootState } from '../../utils/types';
 
 function BurgerIngredients() {
+  const bunRef = useRef<HTMLDivElement>(null),
+  sauceRef = useRef<HTMLDivElement>(null),
+  mainRef = useRef<HTMLDivElement>(null);
+
   const [popupOpen, setPopupOpen] = React.useState(false);
   
   const dispatch = useDispatch();
@@ -74,17 +77,36 @@ const onIngredientClick = (info: TIngredient) => {
 
     return () =>
       ingredientCont?.removeEventListener("scroll", listenScrollEvent);
-  }, []);
+  }, [dispatch]);
+
+  const handleTab = (value: string, ref: typeof bunRef | typeof sauceRef | typeof mainRef) => () => {
+    dispatch({ type: CHANGE_ACTIVE_TAB, value })
+    if (!ref.current) {return null}
+    if (bunRef.current && sauceRef.current && mainRef.current) {
+      ref.current.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+  }
 
   return (
     <div className={`${styles.types} `}>
-      <Tabs />
+      
+      <div className={`${styles.tabs} mt-5 mb-10`} id='tabs' >
+      <Tab value='buns' active={currentTab === 'buns' } onClick={handleTab('buns', bunRef)} >
+        Булки
+      </Tab>
+      <Tab value="sauces" active={ currentTab === "sauces" } onClick={handleTab('sauces', sauceRef)} > 
+        Соусы
+      </Tab>
+      <Tab value="main" active={ currentTab === "main"} onClick={handleTab('main', mainRef)} >
+        Начинки
+      </Tab>
+    </div>
           
       <div className={styles.container} id="ingredientCont" >
       {itemsRequest ? <Loader /> :
           ( itemsFailed ? <p className="text text_type_main-medium">Произошла ошибка. Перезагрузите браузер.</p> : 
           <>
-          <section className={`${styles.content} mb-10`}  id="buns" >
+          <section className={`${styles.content} mb-10`}  id="buns" ref={bunRef}>
           <h2 className="text text_type_main-medium mb-6"  >Булки</h2>
           <div className={styles.list}>
             {ingredients
@@ -101,6 +123,7 @@ const onIngredientClick = (info: TIngredient) => {
         <section
           className={`${styles.content} mb-10`}
           id="sauces"
+          ref={sauceRef}
         >
           <h2 className="text text_type_main-medium mb-6">Соусы</h2>
           <div className={styles.list}>
@@ -115,7 +138,7 @@ const onIngredientClick = (info: TIngredient) => {
               ))}
           </div>
         </section>
-        <section className={`${styles.content} mb-10`} id="main">
+        <section className={`${styles.content} mb-10`} id="main" ref={mainRef}>
           <h2 className="text text_type_main-medium mb-6">
             Основные ингредиенты
           </h2>

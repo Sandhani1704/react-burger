@@ -81,7 +81,7 @@ function ProfilePage() {
   return (
     <div className={styles.container}>
       <div className={styles.profile}>
-      <ProfileNavigation />
+      <ProfileNavigation text='В этом разделе вы можете изменить свои персональные данные'/>
 
         <form className={styles["cont-input"]}>
           <Input
@@ -132,11 +132,6 @@ function ProfilePage() {
           ) : null}
         </form>
       </div>
-      <p
-        className={`${styles.info} text text_type_main-default text_color_inactive mt-20`}
-      >
-        В этом разделе вы можете изменить свои персональные данные
-      </p>
     </div>
   );
 }

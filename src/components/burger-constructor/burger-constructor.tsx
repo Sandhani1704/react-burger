@@ -3,15 +3,19 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
-import BurgerConstructorMainElement from '../burger-constructor-main-element/burger-constructor-main-element'
+import BurgerConstructorMainElement from "../burger-constructor-main-element/burger-constructor-main-element";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_INGREDIENT, DELETE_INGREDIENT, CLEAR_PREV_ORDER } from "../../services/actions/burgers-constructor";
+import {
+  ADD_INGREDIENT,
+  DELETE_INGREDIENT,
+  CLEAR_PREV_ORDER,
+} from "../../services/actions/burgers-constructor";
 import { HIDE_ORDER_INFO } from "../../services/actions/order-details";
-import { getOrderNumber } from '../../services/actions/order-details'; 
+import { getOrderNumber } from "../../services/actions/order-details";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import { useDrop } from "react-dnd";
-import { TIngredient, RootState } from '../../utils/types';
+import { TIngredient, RootState } from "../../utils/types";
 
 const BurgerConstructor: FC = () => {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
@@ -19,9 +23,9 @@ const BurgerConstructor: FC = () => {
   const { addedIngredients } = useSelector(
     (state: RootState) => state.burgersConstructor
   );
-  
-  const allItemsId = addedIngredients.map((item: TIngredient) => item?._id)
-  
+
+  const allItemsId = addedIngredients.map((item: TIngredient) => item?._id);
+
   const orderDetailsModalClick = (allItemsId: string[]) => {
     if (orderDetailsModal) return;
     setOrderDetailsModal(true);
@@ -33,14 +37,14 @@ const BurgerConstructor: FC = () => {
     dispatch({ type: HIDE_ORDER_INFO });
     dispatch({ type: CLEAR_PREV_ORDER });
   };
-  
+
   const deleteIngredient = (index: number) => {
-    dispatch({ type: DELETE_INGREDIENT, index});
-  }
-  
-  const [ { isHover }, dropTarget] = useDrop({
-    accept: 'ingredient',
-    drop(item: {info: TIngredient}) {
+    dispatch({ type: DELETE_INGREDIENT, index });
+  };
+
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item: { info: TIngredient }) {
       dispatch({ type: ADD_INGREDIENT, ingredient: item.info });
     },
     collect: (monitor) => ({
@@ -48,8 +52,7 @@ const BurgerConstructor: FC = () => {
     }),
   });
 
-  
-const totalSum = useMemo(() => {
+  const totalSum = useMemo(() => {
     return addedIngredients.reduce((prev, item) => {
       return prev + item.price;
     }, 0);
@@ -58,69 +61,83 @@ const totalSum = useMemo(() => {
   const bun = React.useMemo(() => {
     return addedIngredients.find((item) => item.type === "bun");
   }, [addedIngredients]);
-  
-  
+
   return (
-    <div ref={dropTarget} className={`${styles.constructor} pt-13 pl-10 
-    ${isHover && styles.onHover }`}>
-      { addedIngredients.length ?
-      (<div className={styles.container}>
-        <div className={`${styles["top-container"]}`} >
-          {bun && (
-            <div
-              style={{
-                display: "flex",
-                gap: "16px",
-                justifyContent: "flex-end",
-              }}
-            >
-              <ConstructorElement
-                type="top"
-                isLocked={true}
-                text={bun.name + " (верх)"}
-                price={bun.price}
-                thumbnail={bun.image}
-              />
-            </div>
-          )}
+    <div
+      ref={dropTarget}
+      className={`${styles.constructor} pt-13 pl-10 
+    ${isHover && styles.onHover}`}
+    >
+      {addedIngredients.length ? (
+        <div className={styles.container}>
+          <div className={`${styles["top-container"]}`}>
+            {bun && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "16px",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <ConstructorElement
+                  type="top"
+                  isLocked={true}
+                  text={bun.name + " (верх)"}
+                  price={bun.price}
+                  thumbnail={bun.image}
+                />
+              </div>
+            )}
+          </div>
+          <div className={styles["scroll-container"]}>
+            {addedIngredients.map((item, index) => {
+              if (item.type !== "bun") {
+                return (
+                  <BurgerConstructorMainElement
+                    key={index}
+                    index={index}
+                    item={item}
+                    deleteIngredient={deleteIngredient}
+                  />
+                );
+              }
+              return null;
+            })}
+          </div>
+          <div className={styles["bottom-container"]}>
+            {bun && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "16px",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <ConstructorElement
+                  type="bottom"
+                  isLocked={true}
+                  text={bun.name + " (низ)"}
+                  price={bun.price}
+                  thumbnail={bun.image}
+                />
+              </div>
+            )}
+          </div>
         </div>
-       <div className={styles["scroll-container"]}>
-          {addedIngredients.map((item, index) => {
-            if (item.type !== "bun") {
-              return (
-                <BurgerConstructorMainElement key={index} index={index} item={item} deleteIngredient={deleteIngredient} />
-            )
-          }
-          return null
-        })}
+      ) : (
+        <div className={styles.info}>
+          <p
+            className={`${styles.text} text text_type_main-default text_color_inactive`}
+          >
+            Переместите сюда ингредиенты для бургера
+          </p>
+          <p
+            className={`${styles.text} text text_type_main-default text_color_inactive`}
+          >
+            Для оформления заказа нужно обязательно выбрать тип булки.
+          </p>
         </div>
-        <div className={styles["bottom-container"]}>
-          {bun && (
-            <div
-              style={{
-                display: "flex",
-                gap: "16px",
-                justifyContent: "flex-end",
-              }}
-            >
-              <ConstructorElement
-                type="bottom"
-                isLocked={true}
-                text={bun.name + " (низ)"}
-                price={bun.price}
-                thumbnail={bun.image}
-              />
-            </div>
-          )}
-        </div>
-      </div>) : 
-      (<div className={styles.info}>
-        <p className={`${styles.text} text text_type_main-default text_color_inactive`}
-        >Переместите сюда ингредиенты для бургера</p>
-        <p className={`${styles.text} text text_type_main-default text_color_inactive`}>
-          Для оформления заказа нужно обязательно выбрать тип булки.</p>
-        </div>)
-      }
+      )}
 
       <div className={`${styles.order} mr-4 mt-10`}>
         <div className={`text mr-10 ${styles.total}`}>
@@ -129,18 +146,23 @@ const totalSum = useMemo(() => {
           <CurrencyIcon type={"primary"} />
         </div>
 
-        { bun && <Button type="primary" size="medium" onClick={() => orderDetailsModalClick(allItemsId)}>
-          Оформить заказ
-        </Button>
-        }
+        {bun && (
+          <Button
+            type="primary"
+            size="medium"
+            onClick={() => orderDetailsModalClick(allItemsId)}
+          >
+            Оформить заказ
+          </Button>
+        )}
       </div>
       {orderDetailsModal && (
-        <Modal title='' onModalHideClick={onModalHideClick}>
-          <OrderDetails  />
+        <Modal title="" onModalHideClick={onModalHideClick}>
+          <OrderDetails />
         </Modal>
       )}
     </div>
   );
-}
+};
 
 export default BurgerConstructor;

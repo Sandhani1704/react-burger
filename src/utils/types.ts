@@ -47,6 +47,7 @@ export type TOrder = {
   status: string;
   ingredients: Array<string>;
   updatedAt: string;
+  image_mobile: string;
 }
 
   export type TUserInfoResponse = {
@@ -54,11 +55,18 @@ export type TOrder = {
     user: { email: string; name: string };
     accessToken: string
     refreshToken: string;
-  } 
+  }
+  
+  export type TError = {
+    success?: string,
+    message?: string;
+    type?: string;
+    code?: number;
+ }
 
  export type TTabNames = 'buns' | 'sauces' | 'main' | '';
   
-  type TApplicationActions = TUserInfoAction | TConstructorActions | TOrderActions | TBurgerIngredientsDataActions | TIngredientInfoActions
+ export  type TApplicationActions = TUserInfoAction | TConstructorActions | TOrderActions | TBurgerIngredientsDataActions | TIngredientInfoActions
   export type AppThunk<ReturnType = void> = ActionCreator<
   ThunkAction<ReturnType, Action, RootState, TApplicationActions>
 >;

@@ -1,11 +1,15 @@
-import React, { FormEvent } from "react";
+import React, { FC, FormEvent } from "react";
 import styles from "./profile-navigation.module.css";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../services/actions/user-info";
 import { RootState } from '../../utils/types';
 
-function ProfileNavigation() {
+type TProfileNavigationProps = {
+  text: string;
+}
+
+const ProfileNavigation: FC<TProfileNavigationProps> = ({ text }) => {
   const dispatch = useDispatch();
   
   const { logOutError } = useSelector(
@@ -56,6 +60,11 @@ function ProfileNavigation() {
           </p>
         : null
       }
+      <p
+        className={`${styles.info} text text_type_main-default text_color_inactive mt-20`}
+      >
+        {text}
+      </p> 
     </nav>
   );
 }

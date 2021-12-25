@@ -10,6 +10,14 @@ const Tabs: FC = () => {
     (state: RootState) => state.burgersConstructor
   );
 
+  // const handleTab = (value: string, ref: typeof bunRef | typeof sauceRef | typeof mainRef) => () => {
+  //   setTab(value);
+  //   if (!ref.current) {return null}
+  //   if (bunRef.current && sauceRef.current && mainRef.current) {
+  //     ref.current.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  //   }
+  // }
+
   return (
     <div className={`${styles.tabs} mt-5 mb-10`} id='tabs' >
       <Tab value='buns' active={currentTab === 'buns' } onClick={() => {console.log('функция еще не написана')}} >

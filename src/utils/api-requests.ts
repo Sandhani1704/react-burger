@@ -8,12 +8,25 @@ const LOGOUT_ADDRESS = `${BASE_URL}/auth/logout`;
 const REFRESH_TOKEN_ADDRESS = `${BASE_URL}/auth/token`;
 const PASSWORD_RESET_ADDRESS = `${BASE_URL}/password-reset`;
 const SET_NEW_PASSWORD = `${BASE_URL}/password-reset/reset`;
+const ORDER_ADDRESS = `${BASE_URL}/orders`;
 
 const checkResponse = (res: Response) => {
   return res.ok
     ? res.json() 
     : res.json().then((err: any) => Promise.reject(err)); 
 };
+
+export function getOrderInfo(orderNumber: string) {
+  return (
+    fetch(`${ORDER_ADDRESS}/${orderNumber}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(res => checkResponse(res))
+  )
+}
 
 export function registration(name: string, email: string, password: string) {
   return fetch(REGISTRATION_ADDRESS, {

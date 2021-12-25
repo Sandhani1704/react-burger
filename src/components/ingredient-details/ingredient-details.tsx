@@ -10,6 +10,7 @@ function IngredientDetails() {
   const { ingredients } = useSelector((state: RootState) => state.burgerIngredientsData);
   
   const { id } = useParams<{id: string}>();
+  console.log(id)
   const info = selectedIngredient
     ? selectedIngredient
     : ingredients.find((item: TIngredient) => item._id === id);

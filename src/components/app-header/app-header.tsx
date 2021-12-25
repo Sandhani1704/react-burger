@@ -32,7 +32,7 @@ const AppHeader: FC = () => {
           <NavLink
             className={styles.item + " pl-5 pr-5 pt-4 pb-4"}
             exact
-            to="/list"
+            to="/feed"
             activeClassName={styles.active}
           >
             <ListIcon type="secondary"/>
