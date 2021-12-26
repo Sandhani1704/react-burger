@@ -24,10 +24,6 @@ type TWSConnectionPrivateClosedAction = {
     type: typeof WS_PRIVATE_CONNECTION_CLOSED
 }
 
-// type TWSCloseConnectionAction = {
-//     type: typeof WS_CLOSE_CONNECTION
-// }
-
 type TWSGetOrdersPrivateAction = {
     type: typeof WS_PRIVATE_GET_ORDERS;
     payload: { orders: Array<TOrder>; total: number; totalToday: number }

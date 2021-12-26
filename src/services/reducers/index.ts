@@ -7,6 +7,7 @@ import { userReducer } from './user-info';
 import { wsReducer } from './ws-reducer';
 import { wsPrivateReducer } from './ws-private-reducer';
 
+
 export const rootReducer = combineReducers({
     burgersConstructor: constructorReducer,
     order: orderReducer,
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
     ingredientInfo: ingredientReducer,
     userInfo: userReducer,
     ordersInfo: wsReducer,
-    wsPrivateReducer: wsPrivateReducer
+    wsPrivateReducer: wsPrivateReducer,
+    
 });

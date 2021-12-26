@@ -7,13 +7,21 @@ import {
   } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  getUser,
   updateUserInfo,
   } from "../../services/actions/user-info";
 import { RootState } from '../../utils/types';
+import { Loader } from "../../components/ui/loader/loader";
+
 
 function ProfilePage() {
-  const { userUnfo } = useSelector((store: RootState) => store.userInfo);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
+  const { userUnfo } = useSelector((store: RootState) => store.userInfo);
+  
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -77,7 +85,7 @@ function ProfilePage() {
   };
 
   const isSomeChanges = Object.values(isChanged).some(Boolean);
-
+  if (!userUnfo.name) return <Loader />;
   return (
     <div className={styles.container}>
       <div className={styles.profile}>

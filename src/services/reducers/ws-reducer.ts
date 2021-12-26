@@ -5,6 +5,8 @@ import {
     WS_GET_ORDERS,
     WS_SET_ORDER,
     TWSActions,
+    OPEN_POPUP_ORDER_INFO,
+    CLOSE_POPUP_ORDER_INFO,
 } from '../actions/ws-actions';
 import { TOrder, TError } from '../../utils/types';
 
@@ -15,6 +17,7 @@ type TWSState = {
     total: number;
     totalToday: number;
     error: TError | null,
+    popupOrderInfo: boolean
 }
 
 export const initialState: TWSState = {
@@ -24,6 +27,7 @@ export const initialState: TWSState = {
     total: 0,
     totalToday: 0,
     error: null,
+    popupOrderInfo: false
 };
 
 export const wsReducer = (state = initialState, action: TWSActions): TWSState => {
@@ -37,10 +41,10 @@ export const wsReducer = (state = initialState, action: TWSActions): TWSState =>
         case WS_CONNECTION_CLOSED:
             return {
                 ...state,
+                wsConnected: false,
                 orders: [],
                 total: 0,
                 totalToday: 0,
-                wsConnected: false,
             };
 
         case WS_GET_ORDERS:
@@ -61,6 +65,19 @@ export const wsReducer = (state = initialState, action: TWSActions): TWSState =>
                 ...state,
                 wsConnected: false,
                 error: action.payload
+            }
+
+        case OPEN_POPUP_ORDER_INFO:
+            return {
+                ...state,
+                popupOrderInfo: true
+            }
+
+        case CLOSE_POPUP_ORDER_INFO:
+            return {
+                ...state,
+                wsConnected: true,
+                popupOrderInfo: false
             }
 
         default:

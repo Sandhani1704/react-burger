@@ -13,7 +13,6 @@
   margin: 0 auto;
   margin-top: 44px;
   justify-content: space-between;
-  /* justify-content: center; */
 }
 
 .content {
@@ -42,7 +41,6 @@
   gap: 24px;
   max-height: 868px;
   overflow: auto;
-  justify-content: center;
 }
 
 .list::-webkit-scrollbar-thumb {

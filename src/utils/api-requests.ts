@@ -12,8 +12,8 @@ const ORDER_ADDRESS = `${BASE_URL}/orders`;
 
 const checkResponse = (res: Response) => {
   return res.ok
-    ? res.json() 
-    : res.json().then((err: any) => Promise.reject(err)); 
+    ? res.json()
+    : res.json().then((err: any) => Promise.reject(err));
 };
 
 export function getOrderInfo(orderNumber: string) {
@@ -24,7 +24,7 @@ export function getOrderInfo(orderNumber: string) {
         'Content-Type': 'application/json',
       },
     })
-    .then(res => checkResponse(res))
+      .then(res => checkResponse(res))
   )
 }
 
@@ -36,7 +36,7 @@ export function registration(name: string, email: string, password: string) {
     },
     body: JSON.stringify({ email, password, name }),
   })
-  .then(res => checkResponse(res))
+    .then(res => checkResponse(res))
 }
 
 export function login(email: string, password: string) {
@@ -47,8 +47,8 @@ export function login(email: string, password: string) {
     },
     body: JSON.stringify({ email, password }),
   })
-  .then(res => checkResponse(res))
-  
+    .then(res => checkResponse(res))
+
 }
 
 export function getUserInfo() {
@@ -56,10 +56,13 @@ export function getUserInfo() {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
       Authorization: "Bearer " + getCookie("accessToken"),
     },
   })
-  .then(res => checkResponse(res))
+    .then(res => checkResponse(res))
 }
 
 export function logOut() {
@@ -69,24 +72,29 @@ export function logOut() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-    token: localStorage.getItem("refreshToken"),
+      token: localStorage.getItem("refreshToken"),
     }),
   })
     .then(res => checkResponse(res))
-  }
-  
-export const refreshToken = async () => {
-  const res = await fetch(REFRESH_TOKEN_ADDRESS, {
+}
+
+export const refreshToken = () => {
+  return fetch(REFRESH_TOKEN_ADDRESS, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
     }),
   })
-  return checkResponse(res)
+  .then(res => checkResponse(res))
 }
+
+
 
 export function updateUser(name: string, email: string, password: string) {
   return fetch(GET_USER_ADDRESS, {
@@ -108,16 +116,16 @@ export function forgotPassword(email: string) {
     },
     body: JSON.stringify({ email }),
   })
-  .then(res => checkResponse(res))
+    .then(res => checkResponse(res))
 }
 
 export function setNewPassword(password: string, token: string) {
   return fetch(SET_NEW_PASSWORD, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ password, token })
-    })
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ password, token })
+  })
     .then(res => checkResponse(res))
-  }
+}

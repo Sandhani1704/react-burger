@@ -6,7 +6,11 @@ import {
   SET_LOGIN_REQUEST_ERROR,
   SET_REGISTER_REQUEST_ERROR,
   SET_LOGOUT_REQUEST_ERROR,
-  TUserInfoAction
+  REFRESH_TOKEN_REQUEST,
+  REFRESH_TOKEN_ERROR,
+  REFRESH_TOKEN_SUCCESS,
+
+    TUserInfoAction
 } from "../actions/user-info";
 
 export type TUserInfoState = {
@@ -16,6 +20,9 @@ export type TUserInfoState = {
   loginError: string;
   logOutError: string;
   isResponsedEmail: boolean;
+  refreshTokenRequest: boolean;
+  refreshTokenError: boolean,
+  refreshTokenSuccess: boolean,
 }
 
 export const initialState: TUserInfoState = {
@@ -25,6 +32,9 @@ export const initialState: TUserInfoState = {
   loginError: '',
   logOutError: '',
   isResponsedEmail: false,
+  refreshTokenRequest: false,
+  refreshTokenSuccess: false,
+  refreshTokenError: false,
 };
 
 export const userReducer = (state = initialState, action: TUserInfoAction): TUserInfoState => {
@@ -72,6 +82,30 @@ export const userReducer = (state = initialState, action: TUserInfoAction): TUse
         ...state,
         isResponsedEmail: true,
       };
+      case REFRESH_TOKEN_REQUEST: {
+        return {
+          ...state,
+          refreshTokenRequest: true,
+          refreshTokenSuccess: false,
+          refreshTokenError: false,
+        };
+      }
+      case REFRESH_TOKEN_SUCCESS: {
+        return {
+          ...state,
+          refreshTokenRequest: false,
+          refreshTokenSuccess: true,
+          refreshTokenError: false,
+        };
+      }
+      case REFRESH_TOKEN_ERROR: {
+        return {
+          ...state,
+          refreshTokenRequest: false,
+          refreshTokenSuccess: false,
+          refreshTokenError: true,
+        };
+      }
     default: {
       return state;
     }

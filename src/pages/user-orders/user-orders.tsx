@@ -20,13 +20,13 @@ function UserOrders() {
   const { ingredients } = useSelector((state: RootState) => state.burgerIngredientsData);
   
   useEffect(() => {
-    dispatch({ type: WS_PRIVATE_CONNECTION_START, wsUrl: USER_ORDERS_URL,
-      token: getCookie("accessToken") });
+    dispatch({ type: WS_PRIVATE_CONNECTION_START, wsUrl: USER_ORDERS_URL, token: getCookie("accessToken") });
     return () => {
       dispatch({ type: WS_PRIVATE_CONNECTION_CLOSED });
     };
   }, [dispatch]);
-  const { orders } = useSelector((store: RootState) => store.wsPrivateReducer);
+
+  const { orders } = useSelector((state: RootState) => state.wsPrivateReducer);
 
   return (
     <div className={styles.orders}>
@@ -35,6 +35,7 @@ function UserOrders() {
         
         <div className={styles.list}>
         { orders.length && ingredients.length ? (
+          
           orders.map((order) =>
             // order.ingredients ? (
               <Link

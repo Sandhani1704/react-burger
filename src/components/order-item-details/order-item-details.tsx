@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import styles from "./order-item-details.module.css";
 import { useParams, useRouteMatch } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,20 +6,52 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../utils/types";
 import { Loader } from "../ui/loader/loader";
 import { transformDate } from "../../utils/formating";
+import {
+  WS_CONNECTION_START,
+  WS_CONNECTION_CLOSED,
+} from "../../services/actions/ws-actions";
+import {
+  WS_PRIVATE_CONNECTION_START,
+  WS_PRIVATE_CONNECTION_CLOSED,
+} from "../../services/actions/ws-private-actions";
+import { ORDERS_URL, USER_ORDERS_URL } from "../../utils/constants";
+import { getCookie } from "../../utils/cookies";
+import { useDispatch } from "react-redux";
 
 const OrderItemDetails: FC = () => {
-  const isProfile = !!useRouteMatch('/profile');
-  
+  const isProfile = !!useRouteMatch("/profile");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      isProfile
+        ? {
+            type: WS_PRIVATE_CONNECTION_START,
+            wsUrl: USER_ORDERS_URL,
+            token: getCookie("accessToken"),
+          }
+        : { type: WS_CONNECTION_START, wsUrl: ORDERS_URL }
+    );
+    // return () => {
+    //   dispatch(
+    //     isProfile
+    //       ? { type: WS_PRIVATE_CONNECTION_CLOSED }
+    //       : { type: WS_CONNECTION_CLOSED }
+    //   );
+    // };
+  }, [dispatch, isProfile]);
+
   const { ingredients } = useSelector(
     (state: RootState) => state.burgerIngredientsData
   );
-  const { orders } = useSelector(
-    (store: RootState) => isProfile ? store.ordersInfo : store.wsPrivateReducer
+  const { orders } = useSelector((store: RootState) =>
+    isProfile ? store.ordersInfo : store.wsPrivateReducer
   );
 
   const { id } = useParams<{ id: string }>();
 
-  const selectedOrder = orders && orders.find((item: { _id: string; }) => item._id === id);
+  const selectedOrder =
+    orders && orders.find((item: { _id: string }) => item._id === id);
   const listId = orders && selectedOrder?.ingredients;
 
   const orderIngredients =
@@ -27,8 +59,6 @@ const OrderItemDetails: FC = () => {
     listId?.map((id: string) => {
       return ingredients?.find((item) => item._id === id);
     });
-
-  console.log(orderIngredients);
 
   const price =
     orders &&
@@ -94,7 +124,6 @@ const OrderItemDetails: FC = () => {
             </div>
             <div>
               <span className={`text text_type_digits-default ${styles.price}`}>
-                {/* {`${item?.count} x ${item?.price}`} <CurrencyIcon type='primary'/> */}
                 {item?.price} <CurrencyIcon type="primary" />
               </span>
             </div>

@@ -9,13 +9,9 @@ import { RootState } from "../../utils/types";
 import { ORDERS_URL } from "../../utils/constants";
 import { Loader } from "../../components/ui/loader/loader";
 import OrderItemList from "../../components/order-item-list/order-item-list";
-import { getUser } from "../../services/actions/user-info";
+
 function Feed() {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
 
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START, wsUrl: ORDERS_URL });

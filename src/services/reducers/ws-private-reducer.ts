@@ -44,10 +44,10 @@ export const wsPrivateReducer = (state = initialState, action: TWSPrivateActions
         case WS_PRIVATE_CONNECTION_CLOSED:
             return {
                 ...state,
+                wsConnected: false,
                 orders: [],
                 total: 0,
                 totalToday: 0,
-                wsConnected: false,
             };
 
         case WS_PRIVATE_GET_ORDERS:

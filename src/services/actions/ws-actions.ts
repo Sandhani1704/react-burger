@@ -6,6 +6,16 @@ export const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSE
 export const WS_GET_ORDERS: 'WS_GET_ORDERS' = 'WS_GET_ORDERS';
 export const WS_SET_ORDER: 'WS_SET_ORDER' = 'WS_SET_ORDER';
 export const WS_SEND_MESSAGE: 'WS_SEND_MESSAGE' = 'WS_SEND_MESSAGE';
+export const CLOSE_POPUP_ORDER_INFO: 'CLOSE_POPUP_ORDER_INFO' = 'CLOSE_POPUP_ORDER_INFO'; 
+export const OPEN_POPUP_ORDER_INFO: 'OPEN_POPUP_ORDER_INFO' = 'OPEN_POPUP_ORDER_INFO';
+
+type TWSOpenPopupOrderInfoAction = {
+    type: typeof OPEN_POPUP_ORDER_INFO
+}
+
+type TWSClosePopupOrderInfoAction = {
+    type: typeof CLOSE_POPUP_ORDER_INFO
+}
 
 type TWSConnectionSuccessAction = {
     type: typeof WS_CONNECTION_SUCCESS
@@ -23,10 +33,6 @@ type TWSConnectionErrorAction = {
 type TWSConnectionClosedAction = {
     type: typeof WS_CONNECTION_CLOSED
 }
-
-// type TWSCloseConnectionAction = {
-//     type: typeof WS_CLOSE_CONNECTION
-// }
 
 type TWSGetOrdersAction = {
     type: typeof WS_GET_ORDERS;
@@ -58,4 +64,5 @@ export type TWSActions = TWSConnectionSuccessAction |
     TWSConnectionErrorAction |
     TWSConnectionClosedAction |
     TWSGetOrdersAction |
-    TWSSetOrderAction | TWSSendMessage
+    TWSSetOrderAction | TWSSendMessage | TWSClosePopupOrderInfoAction 
+    | TWSOpenPopupOrderInfoAction 

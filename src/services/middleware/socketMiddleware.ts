@@ -9,16 +9,16 @@ export const socketMiddleware = (wsActions: TWsActions | TWsPrivateActions) => {
       const { dispatch } = store;
       const { type, payload, wsUrl, token } = action;
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
-      
+
       if (type === wsInit) {
         socket = token
           ? new WebSocket(`${wsUrl}?token=${token}`)
           : new WebSocket(`${wsUrl}`);
       }
-      if (socket?.readyState === 1 && type === onClose) {
-        socket?.close()
-      }
-            if (socket) {
+      // if (socket?.readyState === 1 && type === onClose) {
+      //   socket?.close(1000)
+      // }
+      if (socket) {
         socket.onopen = (event) => {
           dispatch({ type: onOpen, payload: event });
         };

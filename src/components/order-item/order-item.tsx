@@ -8,7 +8,6 @@ import { RootState } from "../../utils/types";
 
 type TOrderProps = {
   order: TOrder;
-  // onModalClick: () => void;
 };
 
 const OrderItem: FC<TOrderProps> = ({ order }) => {
@@ -70,7 +69,7 @@ const OrderItem: FC<TOrderProps> = ({ order }) => {
       <span className={`${styles.name} text text_type_main-medium mt-6`}>
         {order.name}
       </span>
-      <span className="text text_type_main-default mt-2 mb-6">
+      <span className={`text text_type_main-default mt-2 mb-6 ${`${order?.status === "done"} && ${styles["status-done"]}`}`}>
         {showStatus(order.status)}
       </span>
       <div className={styles.bottom}>

@@ -22,9 +22,11 @@ import IngredientDetailsPage from "../../pages/ingredient-details-page/ingredien
 import { ProtectedRoute } from "../protected-route/protected-route";
 import UserOrders from "../../pages/user-orders/user-orders";
 import { useDispatch } from "react-redux";
-import { getUser, updateToken } from "../../services/actions/user-info";
+import { updateToken, getUser } from "../../services/actions/user-info";
 import { getItems } from "../../services/actions/burger-ingredients-data";
 import Modal from "../modal/modal";
+import { CLOSE_POPUP_ORDER_INFO } from "../../services/actions/ws-actions";
+import { HIDE_ORDER_INFO } from "../../services/actions/order-details";
 
 type TLocationState = {
   background: Location<unknown>;
@@ -32,26 +34,28 @@ type TLocationState = {
 
 const App: FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(getUser());
     dispatch(getItems());
-    // dispatch(updateToken(getUser));
-    }, [dispatch]);
-
-  const onModalHideClick = useCallback(() => {
-    history.go(-1);
-    }, [history]);
-
-  // const background =
-  //   history.action === "PUSH" ? location.state?.background : null;
+    dispatch(updateToken());
+  }, [dispatch]);
 
   const ModalSwitch = () => {
     const location = useLocation<TLocationState>();
     const history = useHistory();
+
+    const isShowModal = history.action === "PUSH";
+
+    const onModalHideClick = () => {
+      dispatch({
+        type: CLOSE_POPUP_ORDER_INFO,
+      });
+      history.go(-1);
+    };
+
     const background =
-    history.action === "PUSH" && location.state && location.state.background;
+      history.action === "PUSH" && location.state && location.state.background;
 
     return (
       <div className={styles.app}>
@@ -98,26 +102,25 @@ const App: FC = () => {
         </Switch>
         {background && (
           <>
-            <Route
-              path="/feed/:id"
-              children={
-                <Modal
-                  title=""
-                  // back={"/feed/"}
-                  onModalHideClick={onModalHideClick}
-                >
-                  <OrderItemDetailsPage />
-                </Modal>
-              }
-            ></Route>
+            {isShowModal ? (
+              <Route
+                path="/feed/:id"
+                children={
+                  <Modal title="" onModalHideClick={onModalHideClick}>
+                    <OrderItemDetailsPage />
+                  </Modal>
+                }
+              ></Route>
+            ) : (
+              <Route path="/feed/:id" exact>
+                <OrderItemDetailsPage />
+              </Route>
+            )}
+
             <Route
               path="/profile/orders/:id"
               children={
-                <Modal
-                  title=""
-                  // back={"/profile/orders"}
-                  onModalHideClick={onModalHideClick}
-                >
+                <Modal title="" onModalHideClick={onModalHideClick}>
                   <OrderItemDetailsPage />
                 </Modal>
               }

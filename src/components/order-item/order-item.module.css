@@ -66,35 +66,30 @@
   
   .image-box:nth-child(n+2) {
     position: relative;
-    //left: var(--delta);
     left: -10px;
     z-index: 5;
   }
   
   .image-box:nth-child(n+3) {
     position: relative;
-    //left: calc(2*var(--delta));
     left: -20px;
     z-index: 4;
   }
   
   .image-box:nth-child(n+4) {
     position: relative;
-    //left: calc(3*var(--delta));
     left: -30px;
     z-index: 3;
   }
   
   .image-box:nth-child(n+5) {
     position: relative;
-    //left: calc(4*var(--delta));
     left: -40px;
     z-index: 2;
   }
   
   .image-box:nth-child(n+6) {
     position: relative;
-    //left: calc(5*var(--delta));
     left: -50px;
     z-index: 1;
   }
@@ -104,5 +99,9 @@
     align-items: center;
     gap: 8px;
     color: #F2F2F3;
+  }
+
+  .status-done {
+    color: #00CCCC;
   }
   

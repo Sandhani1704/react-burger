@@ -10,8 +10,6 @@ type TModalProps = {
   onModalHideClick: () => void;
 }
 
-
-
 const Modal: FC<TModalProps> = ({ title, children, onModalHideClick }) => {
    
   React.useEffect(() => {
