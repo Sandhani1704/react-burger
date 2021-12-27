@@ -1,15 +1,14 @@
 import React, { FC } from "react";
 import styles from "./order-details.module.css";
 import DoneIcon from "../../images/graphics.png";
-import { useSelector } from 'react-redux';
+import { useAppSelector } from "../../utils/hooks";
 import { Loader } from "../ui/loader/loader";
 import { Redirect } from 'react-router-dom';
-import { RootState } from '../../utils/types';
 
 const OrderDetails: FC = () => {
   
-const { numberOrder, orderRequest, orderRequestFaild } = useSelector((state: RootState) => state.order)
-const { userUnfo } = useSelector((store: RootState) => store.userInfo);
+const { numberOrder, orderRequest, orderRequestFaild } = useAppSelector((state) => state.order)
+const { userUnfo } = useAppSelector((store) => store.userInfo);
 
 if (!userUnfo.email)
     return <Redirect to='/login'/>

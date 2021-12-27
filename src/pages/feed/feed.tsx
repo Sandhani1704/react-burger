@@ -4,14 +4,14 @@ import {
   WS_CONNECTION_CLOSED,
 } from "../../services/actions/ws-actions";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../utils/types";
 import { ORDERS_URL } from "../../utils/constants";
 import { Loader } from "../../components/ui/loader/loader";
 import OrderItemList from "../../components/order-item-list/order-item-list";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { TOrder } from "../../utils/types";
 
 function Feed() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START, wsUrl: ORDERS_URL });
@@ -20,9 +20,7 @@ function Feed() {
     };
   }, [dispatch]);
 
-  const { orders, total, totalToday } = useSelector(
-    (store: RootState) => store.ordersInfo
-  );
+  const { orders, total, totalToday } = useAppSelector((store) => store.ordersInfo);
 
   return (
     <div className={` ${styles.container} pt-10`}>
@@ -37,7 +35,7 @@ function Feed() {
               <div className={styles["item"]}>
                 <p className="text text_type_main-medium mb-5">Готовы:</p>
                 <div className={styles["item-done"]}>
-                  {orders?.slice(0, 10).map((order) =>
+                  {orders?.slice(0, 10).map((order: TOrder) =>
                     order.status === "done" ? (
                       <p
                         className={`${styles.done} text text_type_digits-default`}
@@ -51,7 +49,7 @@ function Feed() {
               </div>
               <div className={styles.item}>
                 <p className="text text_type_main-medium mb-5">В работе:</p>
-                {orders?.slice(0, 10).map((order) =>
+                {orders?.slice(0, 10).map((order: TOrder) =>
                   order.status === "pending" || order.status === "created" ? (
                     <p
                       key={order._id}

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { store } from '../index';
 import { ThunkAction } from 'redux-thunk';
 import { Action, ActionCreator } from 'redux';
 import { TConstructorActions } from '../services/actions/burgers-constructor';
@@ -7,6 +6,7 @@ import { TOrderActions } from '../services/actions/order-details';
 import { TUserInfoAction } from '../services/actions/user-info';
 import { TBurgerIngredientsDataActions } from '../services/actions/burger-ingredients-data';
 import { TIngredientInfoActions } from '../services/actions/ingredient-details';
+import { store } from '../services/store';
 
 export const burgerPropTypes = PropTypes.shape({
     name: PropTypes.string.isRequired,

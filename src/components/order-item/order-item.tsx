@@ -1,10 +1,9 @@
 import React, { FC, useMemo } from "react";
 import styles from "./order-item.module.css";
-import { TOrder } from "../../utils/types";
+import { TIngredient, TOrder } from "../../utils/types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { transformDate } from "../../utils/formating";
-import { useSelector } from "react-redux";
-import { RootState } from "../../utils/types";
+import { useAppSelector } from "../../utils/hooks";
 
 type TOrderProps = {
   order: TOrder;
@@ -12,13 +11,11 @@ type TOrderProps = {
 
 const OrderItem: FC<TOrderProps> = ({ order }) => {
 
-  const { ingredients } = useSelector(
-    (state: RootState) => state.burgerIngredientsData
-  );
+  const { ingredients } = useAppSelector((state) => state.burgerIngredientsData);
 
   const ordersImages = useMemo(() => {
     return order.ingredients.map((orderId: string) => {
-      return ingredients?.find((ingredient) => {
+      return ingredients?.find((ingredient: TIngredient) => {
         return ingredient._id === orderId;
       });
     });

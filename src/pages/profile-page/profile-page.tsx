@@ -5,22 +5,20 @@ import {
   Input,
   Button,
   } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
 import {
   getUser,
   updateUserInfo,
   } from "../../services/actions/user-info";
-import { RootState } from '../../utils/types';
 import { Loader } from "../../components/ui/loader/loader";
-
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 function ProfilePage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
 
-  const { userUnfo } = useSelector((store: RootState) => store.userInfo);
+  const { userUnfo } = useAppSelector((store) => store.userInfo);
   
   const [userData, setUserData] = useState({
     name: "",

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useCallback } from "react";
+import React, { FC, useEffect } from "react";
 import AppHeader from "../app-header/app-header";
 import styles from "./app.module.css";
 import {
@@ -21,19 +21,18 @@ import NotFound from "../../pages/not-found/not-found";
 import IngredientDetailsPage from "../../pages/ingredient-details-page/ingredient-details-page";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import UserOrders from "../../pages/user-orders/user-orders";
-import { useDispatch } from "react-redux";
 import { updateToken, getUser } from "../../services/actions/user-info";
 import { getItems } from "../../services/actions/burger-ingredients-data";
 import Modal from "../modal/modal";
 import { CLOSE_POPUP_ORDER_INFO } from "../../services/actions/ws-actions";
-import { HIDE_ORDER_INFO } from "../../services/actions/order-details";
+import { useAppDispatch } from "../../utils/hooks";
 
 type TLocationState = {
   background: Location<unknown>;
 };
 
 const App: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getUser());

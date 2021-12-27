@@ -3,9 +3,9 @@ import styles from "./burger-constructor-main-element.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from 'react-redux';
 import { SORT_INGREDIENTS } from '../../services/actions/burgers-constructor';
 import { TIngredient } from '../../utils/types';
+import { useAppDispatch } from "../../utils/hooks";
 type TMainElementProps = {
   item:  TIngredient;
   index: number;
@@ -13,7 +13,7 @@ type TMainElementProps = {
 }
 
 const BurgerConstructorMainElement: FC<TMainElementProps> = ({ item, index, deleteIngredient }) => {
-const dispatch = useDispatch();
+const dispatch = useAppDispatch();
 const ref = useRef(null);
 
 const [ { isDragging }, drag] = useDrag({

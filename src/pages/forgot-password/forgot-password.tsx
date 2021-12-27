@@ -4,12 +4,12 @@ import { NavLink } from 'react-router-dom';
 import styles from './forgot-password.module.css';
 import { useHistory } from "react-router-dom";
 import { passwordReset } from '../../services/actions/user-info';
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../utils/hooks";
 
 function ForgotPassword() {
   const history = useHistory()
   const [emailValue, setEmail] = useState('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +25,6 @@ function ForgotPassword() {
         name='email'
         onChange={e => setEmail(e.target.value)}
         value={emailValue}
-        // className='mb-6'
         size={'default'}
       />
     <Button type='primary' size='medium'>Восстановить</Button>

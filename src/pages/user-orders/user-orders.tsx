@@ -6,18 +6,17 @@ import {
   WS_PRIVATE_CONNECTION_START,
   WS_PRIVATE_CONNECTION_CLOSED,
 } from "../../services/actions/ws-private-actions";
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from "react-redux";
-import { RootState } from "../../utils/types";
 import OrderItem from "../../components/order-item/order-item";
 import { Loader } from "../../components/ui/loader/loader";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { TOrder } from "../../utils/types";
 
 function UserOrders() {
   const location = useLocation();
-  const dispatch = useDispatch();
-  const { ingredients } = useSelector((state: RootState) => state.burgerIngredientsData);
+  const dispatch = useAppDispatch();
+  const { ingredients } = useAppSelector((state) => state.burgerIngredientsData);
   
   useEffect(() => {
     dispatch({ type: WS_PRIVATE_CONNECTION_START, wsUrl: USER_ORDERS_URL, token: getCookie("accessToken") });
@@ -26,7 +25,7 @@ function UserOrders() {
     };
   }, [dispatch]);
 
-  const { orders } = useSelector((state: RootState) => state.wsPrivateReducer);
+  const { orders } = useAppSelector((state) => state.wsPrivateReducer);
 
   return (
     <div className={styles.orders}>
@@ -36,7 +35,7 @@ function UserOrders() {
         <div className={styles.list}>
         { orders.length && ingredients.length ? (
           
-          orders.map((order) =>
+          orders.map((order: TOrder) =>
             // order.ingredients ? (
               <Link
               key={order._id}

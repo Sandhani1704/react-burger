@@ -2,14 +2,13 @@ import React, { useState, FormEvent } from 'react';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink, Redirect, useHistory } from "react-router-dom";
 import styles from './reset-password.module.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { setNewPasswordValue} from '../../services/actions/user-info';
-import { RootState } from '../../utils/types';
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 function ResetPassword() {
   const history = useHistory();
-  const dispatch = useDispatch()
-  const { isResponsedEmail } = useSelector((store: RootState) => store.userInfo);
+  const dispatch = useAppDispatch()
+  const { isResponsedEmail } = useAppSelector((store) => store.userInfo);
   const [passwordValue, setPassword] = useState('');
   const [code, setCode] = useState('');
 

@@ -4,7 +4,6 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorMainElement from "../burger-constructor-main-element/burger-constructor-main-element";
-import { useDispatch, useSelector } from "react-redux";
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
@@ -15,14 +14,13 @@ import { getOrderNumber } from "../../services/actions/order-details";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import { useDrop } from "react-dnd";
-import { TIngredient, RootState } from "../../utils/types";
+import { TIngredient } from "../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 const BurgerConstructor: FC = () => {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
-  const dispatch = useDispatch();
-  const { addedIngredients } = useSelector(
-    (state: RootState) => state.burgersConstructor
-  );
+  const dispatch = useAppDispatch();
+  const { addedIngredients } = useAppSelector((state) => state.burgersConstructor);
 
   const allItemsId = addedIngredients.map((item: TIngredient) => item?._id);
 
@@ -53,13 +51,13 @@ const BurgerConstructor: FC = () => {
   });
 
   const totalSum = useMemo(() => {
-    return addedIngredients.reduce((prev, item) => {
+    return addedIngredients.reduce((prev: any, item: { price: number; }) => {
       return prev + item.price;
     }, 0);
   }, [addedIngredients]);
 
   const bun = React.useMemo(() => {
-    return addedIngredients.find((item) => item.type === "bun");
+    return addedIngredients.find((item: { type: string; }) => item.type === "bun");
   }, [addedIngredients]);
 
   return (
@@ -90,7 +88,7 @@ const BurgerConstructor: FC = () => {
             )}
           </div>
           <div className={styles["scroll-container"]}>
-            {addedIngredients.map((item, index) => {
+            {addedIngredients.map((item: TIngredient, index: number) => {
               if (item.type !== "bun") {
                 return (
                   <BurgerConstructorMainElement
