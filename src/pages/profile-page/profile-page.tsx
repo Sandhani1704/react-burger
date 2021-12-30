@@ -5,15 +5,21 @@ import {
   Input,
   Button,
   } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
 import {
+  getUser,
   updateUserInfo,
   } from "../../services/actions/user-info";
-import { RootState } from '../../utils/types';
+import { Loader } from "../../components/ui/loader/loader";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 function ProfilePage() {
-  const { userUnfo } = useSelector((store: RootState) => store.userInfo);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
+  const { userUnfo } = useAppSelector((store) => store.userInfo);
+  
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -77,11 +83,11 @@ function ProfilePage() {
   };
 
   const isSomeChanges = Object.values(isChanged).some(Boolean);
-
+  if (!userUnfo.name) return <Loader />;
   return (
     <div className={styles.container}>
       <div className={styles.profile}>
-      <ProfileNavigation />
+      <ProfileNavigation text='В этом разделе вы можете изменить свои персональные данные'/>
 
         <form className={styles["cont-input"]}>
           <Input
@@ -132,11 +138,6 @@ function ProfilePage() {
           ) : null}
         </form>
       </div>
-      <p
-        className={`${styles.info} text text_type_main-default text_color_inactive mt-20`}
-      >
-        В этом разделе вы можете изменить свои персональные данные
-      </p>
     </div>
   );
 }

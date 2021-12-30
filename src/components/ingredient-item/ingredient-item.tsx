@@ -5,20 +5,18 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useAppSelector } from "../../utils/hooks";
 import { useDrag } from 'react-dnd';
-import { TIngredient, RootState } from '../../utils/types';
+import { TIngredient } from '../../utils/types';
 
 type TIngredientItemProps = {
   info:  TIngredient;
   onIngredientClick: (info: TIngredient) => void;
 }
 
-
 const IngredientItem: FC<TIngredientItemProps> = ({ info, onIngredientClick }) => {
-  const addedIngredients = useSelector(
-    (state: RootState) => state.burgersConstructor.addedIngredients
-  );
+  const addedIngredients = useAppSelector((state) => state.burgersConstructor.addedIngredients);
+
   const [, dragRef] = useDrag(() => ({
     type: 'ingredient',
     item: { info } ,
@@ -28,7 +26,7 @@ const IngredientItem: FC<TIngredientItemProps> = ({ info, onIngredientClick }) =
   }))
 
   const currentCount = useMemo(() => {
-    return addedIngredients.filter(item => item._id === info._id).length
+    return addedIngredients.filter((item) => item._id === info._id).length
   }, [addedIngredients, info._id])
 
   const location = useLocation();

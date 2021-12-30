@@ -32,10 +32,10 @@ const AppHeader: FC = () => {
           <NavLink
             className={styles.item + " pl-5 pr-5 pt-4 pb-4"}
             exact
-            to="/list"
+            to="/feed"
             activeClassName={styles.active}
           >
-            <ListIcon type="secondary"/>
+            <ListIcon type="secondary" />
             <p
               className={
                 "text text_type_main-default ml-2 mr-5 text_color_inactive"
@@ -45,9 +45,9 @@ const AppHeader: FC = () => {
             </p>
           </NavLink>
         </div>
-        <div className={styles.center}>
+        <NavLink className={styles.center} to="/">
           <Logo />
-        </div>
+        </NavLink>
         <NavLink
           className={styles.right + " pl-5 pr-5 pt-4 pb-4"}
           to="/profile"
@@ -62,6 +62,6 @@ const AppHeader: FC = () => {
       </nav>
     </header>
   );
-}
+};
 
 export default AppHeader;

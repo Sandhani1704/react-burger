@@ -23,20 +23,19 @@ type THideOrderInfo = {
   type: typeof HIDE_ORDER_INFO;
 }
 
-export type TOrderActions = 
-TGetOrderSuccess |
-TGetOrderRequest | TGetOrderFailed | THideOrderInfo
+export type TOrderActions =
+  TGetOrderSuccess |
+  TGetOrderRequest | TGetOrderFailed | THideOrderInfo
 
 export const getOrderNumber: AppThunk = (ingredients: string[]) => (dispatch: AppDispatch) => {
-    dispatch({ type: GET_ORDER_REQUEST });
-    getOrder(ingredients)
-      .then(res => dispatch({ type: GET_ORDER_SUCCESS, order: res.order }))
-      .catch(err => {
-      // console.log(err)
-        if (err.message === "jwt expired") {
-          dispatch(updateToken(getOrderNumber, ingredients) as any);
-          return;
-        }
-        dispatch({ type: GET_ORDER_FAILED })
-      })
-  }
+  dispatch({ type: GET_ORDER_REQUEST });
+  getOrder(ingredients)
+    .then(res => dispatch({ type: GET_ORDER_SUCCESS, order: res.order }))
+    .catch(err => {
+      if (err.message === "jwt expired") {
+        dispatch(updateToken() as any);
+        return;
+      }
+      dispatch({ type: GET_ORDER_FAILED })
+    })
+}

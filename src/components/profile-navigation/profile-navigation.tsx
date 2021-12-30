@@ -1,16 +1,16 @@
-import React, { FormEvent } from "react";
+import React, { FC, FormEvent } from "react";
 import styles from "./profile-navigation.module.css";
 import { NavLink, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../services/actions/user-info";
-import { RootState } from '../../utils/types';
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+type TProfileNavigationProps = {
+  text: string;
+}
 
-function ProfileNavigation() {
-  const dispatch = useDispatch();
+const ProfileNavigation: FC<TProfileNavigationProps> = ({ text }) => {
+  const dispatch = useAppDispatch();
   
-  const { logOutError } = useSelector(
-    (state: RootState) => state.userInfo
-  );
+  const { logOutError } = useAppSelector((state) => state.userInfo);
   
   const history = useHistory();
 
@@ -56,6 +56,11 @@ function ProfileNavigation() {
           </p>
         : null
       }
+      <p
+        className={`${styles.info} text text_type_main-default text_color_inactive mt-20`}
+      >
+        {text}
+      </p> 
     </nav>
   );
 }

@@ -1,15 +1,16 @@
 import React from "react";
 import styles from "./ingredient-details.module.css";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../utils/hooks";
 import { Redirect, useParams } from "react-router-dom";
-import { TIngredient, RootState } from '../../utils/types';
+import { TIngredient } from '../../utils/types';
 
 function IngredientDetails() {
-  const { selectedIngredient } = useSelector((state: RootState) => state.ingredientInfo);
+  const { selectedIngredient } = useAppSelector((state) => state.ingredientInfo);
 
-  const { ingredients } = useSelector((state: RootState) => state.burgerIngredientsData);
+  const { ingredients } = useAppSelector((state) => state.burgerIngredientsData);
   
   const { id } = useParams<{id: string}>();
+  
   const info = selectedIngredient
     ? selectedIngredient
     : ingredients.find((item: TIngredient) => item._id === id);

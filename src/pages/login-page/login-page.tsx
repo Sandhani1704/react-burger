@@ -6,15 +6,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, Redirect, useLocation } from "react-router-dom";
 import styles from "./login-page.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { SET_LOGIN_REQUEST_ERROR } from "../../services/actions/user-info";
 import { loginUser } from "../../services/actions/user-info";
-import { RootState } from '../../utils/types';
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 function LoginPage() {
-  const { userUnfo, loginError } = useSelector((store: RootState) => store.userInfo);
+  const { userUnfo, loginError } = useAppSelector((store) => store.userInfo);
   const location = useLocation<{from: string}>();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [emailValue, setEmail] = useState("");
   const [passwordValue, setPassword] = useState("");
   
