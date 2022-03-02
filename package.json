@@ -2,7 +2,7 @@
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sandhani1704.github.io/react-burger/",
+  "homepage": "./",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.11.4",
@@ -56,9 +56,5 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.3.1"
-  },
-  "main": "index.js",
-  "repository": "https://github.com/Sandhani1704/react-burger.git",
-  "author": "Anna Galkina <sandhani1704@yandex.ru>",
-  "license": "MIT"
+  }
 }
