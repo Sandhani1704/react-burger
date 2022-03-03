@@ -12,7 +12,7 @@ const Router: typeof HashRouter = isProduction ? HashRouter : BrowserRouter;
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
+      <Router basename="/reactBurger">
       <App />
       </Router>
     </Provider>
