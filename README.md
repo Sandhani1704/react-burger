@@ -31,7 +31,7 @@
   
 ### Запуск проекта:
 
-* Cкопировать репозиторий: `https://github.com/Sandhani1704/reactBurger.git`;
+* Cкопировать репозиторий: `https://github.com/Sandhani1704/react-burger.git`;
 
 * Установить зависимости: `npm install`;
 
@@ -41,4 +41,4 @@
 
 * Собрать проект в production: `npm run build`.
 
-[Ссылка на проект](https://sandhani1704.github.io/reactBurger/)
+[Ссылка на проект](https://sandhani1704.github.io/react-burger/)
