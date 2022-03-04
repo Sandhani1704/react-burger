@@ -13,7 +13,7 @@ import { store } from "./services/store";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router basename="react-burger">
+      <Router basename="/react-burger">
       <App />
       </Router>
     </Provider>
