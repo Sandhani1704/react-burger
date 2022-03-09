@@ -9,7 +9,7 @@ type TModalOverlayProps = {
 const ModalOverlay: FC<TModalOverlayProps> = ({ onModalHideClick }) => {
   
   return ReactDOM.createPortal(
-    <div className={styles.overlay} onClick={onModalHideClick}></div>,
+    <div className={styles.overlay} onClick={onModalHideClick} data-test-id="modal-overlay" ></div>,
     document.body
   );
 }

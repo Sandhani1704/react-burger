@@ -34,7 +34,7 @@ export type TIngredient = {
     image: string;
     image_mobile: string;
     image_large: string;
-    __v: string;
+    __v: number;
     _id: string;
   };
 
@@ -47,7 +47,7 @@ export type TOrder = {
   status: string;
   ingredients: Array<string>;
   updatedAt: string;
-  image_mobile: string;
+  // image_mobile: string;
 }
 
   export type TUserInfoResponse = {

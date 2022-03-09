@@ -32,7 +32,7 @@ export const getOrderNumber: AppThunk = (ingredients: string[]) => (dispatch: Ap
   getOrder(ingredients)
     .then(res => dispatch({ type: GET_ORDER_SUCCESS, order: res.order }))
     .catch(err => {
-      if (err.message === "jwt expired") {
+      if (err.message === "jwt expired" || err.message === 'jwt malformed') {
         dispatch(updateToken() as any);
         return;
       }

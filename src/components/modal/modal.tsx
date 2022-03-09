@@ -29,7 +29,7 @@ const Modal: FC<TModalProps> = ({ title, children, onModalHideClick }) => {
   return modalRoot ? ReactDOM.createPortal(
     <div>
       <ModalOverlay onModalHideClick={onModalHideClick} />
-      <div className={styles.popup}>
+      <div className={styles.popup} data-test-id="modal" >
         <div>
           <div className={`ml-10 mr-10 ${styles.container}`}>
             <div className={`text text_type_main-large ${styles.title}`}>
@@ -39,6 +39,7 @@ const Modal: FC<TModalProps> = ({ title, children, onModalHideClick }) => {
               type="button"
               className={styles["close-icon"]}
               onClick={onModalHideClick}
+              data-test-id="close-icon"
             >
               <CloseIcon type="primary" />
             </button>

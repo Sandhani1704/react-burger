@@ -91,7 +91,7 @@ export const refreshToken = () => {
       token: localStorage.getItem("refreshToken"),
     }),
   })
-  .then(res => checkResponse(res))
+    .then(res => checkResponse(res))
 }
 
 
