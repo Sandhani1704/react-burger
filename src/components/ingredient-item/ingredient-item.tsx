@@ -42,6 +42,7 @@ const IngredientItem: FC<TIngredientItemProps> = ({ info, onIngredientClick }) =
         pathname: `/ingredients/${info._id}`,
         state: {background: location}
       }}
+      data-test-id="ingredient-item"
     >
       <img className="mb-1" src={info.image} alt={`ингредиент ${info.name}`} />
       <span className={`text text_type_digits-default mb-1 ${styles.price}`}>

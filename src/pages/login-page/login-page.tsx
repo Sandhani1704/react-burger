@@ -38,13 +38,15 @@ function LoginPage() {
         onChange={(e) => setEmail(e.target.value)}
         value={emailValue}
         size={"default"}
+        //data-test-id="input-type-email"
       />
       <PasswordInput
         name="password"
         onChange={(e) => setPassword(e.target.value)}
         value={passwordValue}
+        data-test-id="input-type-password"
       />
-      <Button type="primary" size="medium">
+      <Button type="primary" size="medium" data-test-id="button-login">
         Войти
       </Button>
       {loginError ? (

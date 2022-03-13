@@ -25,6 +25,8 @@ function BurgerIngredients() {
     (state) => state.burgerIngredientsData
   );
 
+  console.log(ingredients)
+
   const { currentTab } = useAppSelector((state) => state.burgersConstructor);
 
   const onIngredientClick = (info: TIngredient) => {

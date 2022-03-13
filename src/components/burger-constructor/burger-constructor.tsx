@@ -65,6 +65,7 @@ const BurgerConstructor: FC = () => {
       ref={dropTarget}
       className={`${styles.constructor} pt-13 pl-10 
     ${isHover && styles.onHover}`}
+    data-test-id="burger-constructor"
     >
       {addedIngredients.length ? (
         <div className={styles.container}>
@@ -127,7 +128,7 @@ const BurgerConstructor: FC = () => {
           <p
             className={`${styles.text} text text_type_main-default text_color_inactive`}
           >
-            Переместите сюда ингредиенты для бургера
+            Переместите сюда ингредиенты для бургера.
           </p>
           <p
             className={`${styles.text} text text_type_main-default text_color_inactive`}
@@ -148,6 +149,7 @@ const BurgerConstructor: FC = () => {
           <Button
             type="primary"
             size="medium"
+            data-test-id="button-order"
             onClick={() => orderDetailsModalClick(allItemsId)}
           >
             Оформить заказ
